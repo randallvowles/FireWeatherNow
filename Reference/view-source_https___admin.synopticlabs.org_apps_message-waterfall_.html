@@ -1,0 +1,927 @@
+<!-- saved from url=(0054)https://admin.synopticlabs.org/apps/message-waterfall/ -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body>
+    <div class="line-gutter-backdrop"></div>
+    <table>
+        <tbody>
+            <tr>
+                <td class="line-number" value="1"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="2"></td>
+                <td class="line-content"><span class="html-doctype">&lt;!DOCTYPE html&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="3"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="4"></td>
+                <td class="line-content"><span class="html-tag">&lt;html&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="5"></td>
+                <td class="line-content"> <span class="html-tag">&lt;head&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="6"></td>
+                <td class="line-content"> <span class="html-tag">&lt;meta <span class="html-attribute-name">charset</span>="<span class="html-attribute-value">utf-8</span>"&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="7"></td>
+                <td class="line-content"> <span class="html-tag">&lt;meta <span class="html-attribute-name">http-equiv</span>="<span class="html-attribute-value">X-UA-Compatible</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">IE=edge</span>"&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="8"></td>
+                <td class="line-content"> <span class="html-tag">&lt;meta <span class="html-attribute-name">name</span>="<span class="html-attribute-value">viewport</span>" <span class="html-attribute-name">content</span>="<span class="html-attribute-value">width=device-width, initial-scale=1.0</span>"&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="9"></td>
+                <td class="line-content"> <span class="html-tag">&lt;title&gt;</span><span class="html-tag">&lt;/title&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="10"></td>
+                <td class="line-content"> <span class="html-tag">&lt;link <span class="html-attribute-name">rel</span>='<span class="html-attribute-value">stylesheet</span>' <span class="html-attribute-name">type</span>='<span class="html-attribute-value">text/css</span>'
+                    <span
+                        class="html-attribute-name">href</span>='<a class="html-attribute-value html-resource-link" target="_blank" href="https://admin.synopticlabs.org/resources/style.css">/resources/style.css</a>'&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="11"></td>
+                <td class="line-content"> <span class="html-comment">&lt;!-- &lt;link rel='stylesheet' type='text/css' href='style.css'&gt; --&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="12"></td>
+                <td class="line-content"> <span class="html-tag">&lt;script <span class="html-attribute-name">src</span>='<a class="html-attribute-value html-resource-link" target="_blank" href="https://scs.synopticlabs.org/js/moment.js">https://scs.synopticlabs.org/js/moment.js</a>'&gt;</span>
+                    <span
+                        class="html-tag">&lt;/script&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="13"></td>
+                <td class="line-content"> <span class="html-tag">&lt;script <span class="html-attribute-name">src</span>='<a class="html-attribute-value html-resource-link" target="_blank" href="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js</a>'&gt;</span>
+                    <span
+                        class="html-tag">&lt;/script&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="14"></td>
+                <td class="line-content"> <span class="html-tag">&lt;script&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="15"></td>
+                <td class="line-content"> var colors = ["#F0F8FF", "#FAEBD7", "#FFEFDB", "#EEDFCC", "#CDC0B0", "#8B8378", "#7FFFD4", "#7FFFD4", "#76EEC6", "#66CDAA", "#458B74", "#F0FFFF", "#F0FFFF", "#E0EEEE", "#C1CDCD", "#838B8B", "#F5F5DC", "#FFE4C4", "#FFE4C4", "#EED5B7", "#EED5B7",
+                    "#CDB79E", "#8B7D6B", "#000000", "#FFEBCD", </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="16"></td>
+                <td class="line-content"> "#0000FF", "#0000FF", "#0000EE", "#0000CD", "#00008B", "#8A2BE2", "#A52A2A", "#FF4040", "#EE3B3B", "#CD3333", "#8B2323", "#DEB887", "#FFD39B", "#EEC591", "#CDAA7D", "#8B7355", "#5F9EA0", "#98F5FF", "#8EE5EE", "#7AC5CD", "#53868B", "#7FFF00",
+                    "#7FFF00", "#76EE00", "#66CD00", "#458B00", </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="17"></td>
+                <td class="line-content"> "#D2691E", "#FF7F24", "#EE7621", "#CD661D", "#8B4513", "#FF7F50", "#FF7256", "#EE6A50", "#CD5B45", "#8B3E2F", "#6495ED", "#FFF8DC", "#FFF8DC", "#EEE8CD", "#CDC8B1", "#8B8878", "#DC143C", "#00FFFF", "#00FFFF", "#00EEEE", "#00CDCD", "#008B8B",
+                    "#00008B", "#008B8B", "#B8860B", "#FFB90F", </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="18"></td>
+                <td class="line-content"> "#EEAD0E", "#CD950C", "#8B6508", "#A9A9A9", "#006400", "#A9A9A9", "#BDB76B", "#8B008B", "#556B2F", "#CAFF70", "#BCEE68", "#A2CD5A", "#6E8B3D", "#FF8C00", "#FF7F00", "#EE7600", "#CD6600", "#8B4500", "#9932CC", "#BF3EFF", "#B23AEE", "#9A32CD",
+                    "#68228B", "#8B0000", "#E9967A", "#8FBC8F", </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="19"></td>
+                <td class="line-content"> "#C1FFC1", "#B4EEB4", "#9BCD9B", "#698B69", "#483D8B", "#2F4F4F", "#97FFFF", "#8DEEEE", "#79CDCD", "#528B8B", "#2F4F4F", "#00CED1", "#9400D3", "#FF1493", "#FF1493", "#EE1289", "#CD1076", "#8B0A50", "#00BFFF", "#00BFFF", "#00B2EE", "#009ACD",
+                    "#00688B", "#696969", "#696969",</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="20"></td>
+                <td class="line-content"> ]</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="21"></td>
+                <td class="line-content"> var ws</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="22"></td>
+                <td class="line-content"> $(function(){</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="23"></td>
+                <td class="line-content"> // start the socket and keep it running</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="24"></td>
+                <td class="line-content"> setInterval(function (){</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="25"></td>
+                <td class="line-content"> if (ws &amp;&amp; ws.readyState == ws.OPEN){ //reconnect == true</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="26"></td>
+                <td class="line-content"> ws.send(JSON.stringify({</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="27"></td>
+                <td class="line-content"> ping: "keepalive"</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="28"></td>
+                <td class="line-content"> }));</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="29"></td>
+                <td class="line-content"> //</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="30"></td>
+                <td class="line-content"> } else {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="31"></td>
+                <td class="line-content"> </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="32"></td>
+                <td class="line-content"> start_socket(dumpSocketValue,false);</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="33"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="34"></td>
+                <td class="line-content"> },3000);</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="35"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="36"></td>
+                <td class="line-content"> $(".js-feedupdate").on("submit",function(e){</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="37"></td>
+                <td class="line-content"> e.preventDefault()</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="38"></td>
+                <td class="line-content"> e.stopPropagation();</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="39"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="40"></td>
+                <td class="line-content"> callAPI("configureStream",{"setOrigins":$(".js-setorigin").val(),"setMessageTypes":$(".js-messageType").val()});</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="41"></td>
+                <td class="line-content"> });</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="42"></td>
+                <td class="line-content"> $(".js-clear").click(function(e){</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="43"></td>
+                <td class="line-content"> e.preventDefault()</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="44"></td>
+                <td class="line-content"> e.stopPropagation();</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="45"></td>
+                <td class="line-content"> $(".contents").empty();</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="46"></td>
+                <td class="line-content"> });</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="47"></td>
+                <td class="line-content"> $(".js-clear-20").click(function(e){</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="48"></td>
+                <td class="line-content"> e.preventDefault()</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="49"></td>
+                <td class="line-content"> e.stopPropagation();</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="50"></td>
+                <td class="line-content"> $(".contents").empty();</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="51"></td>
+                <td class="line-content"> callAPI("recentMessages",{"limit":20});</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="52"></td>
+                <td class="line-content"> })</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="53"></td>
+                <td class="line-content"> $('.js-pause-unpause').click(pause)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="54"></td>
+                <td class="line-content"> })</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="55"></td>
+                <td class="line-content"> </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="56"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="57"></td>
+                <td class="line-content"> function callAPI(func, args, callback) {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="58"></td>
+                <td class="line-content"> /*</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="59"></td>
+                <td class="line-content"> * A wrapper for calling the API services of the system. set a callback if desired.</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="60"></td>
+                <td class="line-content"> *</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="61"></td>
+                <td class="line-content"> * func: the string name of the API function you want to call. </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="62"></td>
+                <td class="line-content"> * args: a dictionary of key-value pairs passed to the API</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="63"></td>
+                <td class="line-content"> * callback: a function that is called with the JSON data structure returned.</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="64"></td>
+                <td class="line-content"> *</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="65"></td>
+                <td class="line-content"> */</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="66"></td>
+                <td class="line-content"> if (callback) {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="67"></td>
+                <td class="line-content"> // they have a callback, so we should add an event listner and code</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="68"></td>
+                <td class="line-content"> call_code = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10);</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="69"></td>
+                <td class="line-content"> addEventListener(call_code, callback)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="70"></td>
+                <td class="line-content"> args['call_id'] = call_code;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="71"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="72"></td>
+                <td class="line-content"> args['apiFunction'] = func</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="73"></td>
+                <td class="line-content"> // and call the webscoket API</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="74"></td>
+                <td class="line-content"> if (ws &amp;&amp; ws.readyState == ws.OPEN){</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="75"></td>
+                <td class="line-content"> ws.send(JSON.stringify(args));</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="76"></td>
+                <td class="line-content"> } else {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="77"></td>
+                <td class="line-content"> callback({"erorr":"API Disconnected"});</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="78"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="79"></td>
+                <td class="line-content"> </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="80"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="81"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="82"></td>
+                <td class="line-content"> var event_listeners = [];</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="83"></td>
+                <td class="line-content"> function addEventListener(trigger, func) {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="84"></td>
+                <td class="line-content"> // ad single event listener (todo - update to handle multiple receipts of the same response)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="85"></td>
+                <td class="line-content"> event_listeners.push({"trigger":trigger, "func":func});</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="86"></td>
+                <td class="line-content"> // that's it</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="87"></td>
+                <td class="line-content"> return;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="88"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="89"></td>
+                <td class="line-content"> function start_socket(onmsg, oncls)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="90"></td>
+                <td class="line-content"> {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="91"></td>
+                <td class="line-content"> if (ws){</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="92"></td>
+                <td class="line-content"> if (ws.readyState != ws.OPEN){</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="93"></td>
+                <td class="line-content"> ws = new WebSocket('wss://admin.synopticlabs.org/sockets/message');</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="94"></td>
+                <td class="line-content"> } else if (ws.readyState == ws.OPEN) {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="95"></td>
+                <td class="line-content"> return;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="96"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="97"></td>
+                <td class="line-content"> } else {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="98"></td>
+                <td class="line-content"> ws = new WebSocket('wss://admin.synopticlabs.org/sockets/message');</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="99"></td>
+                <td class="line-content"> </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="100"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="101"></td>
+                <td class="line-content"> ws.onopen = function(evt) {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="102"></td>
+                <td class="line-content"> // request only logging message types.</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="103"></td>
+                <td class="line-content"> callAPI("configureStream",{"setOrigins":"ALL","setMessageTypes":$(".js-messageType").val()});</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="104"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="105"></td>
+                <td class="line-content"> ws.onmessage = function(evt) {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="106"></td>
+                <td class="line-content"> </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="107"></td>
+                <td class="line-content"> data = JSON.parse(evt.data);</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="108"></td>
+                <td class="line-content"> // call any registered output listeners</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="109"></td>
+                <td class="line-content"> if (event_listeners.length &gt; 0) {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="110"></td>
+                <td class="line-content"> // evaluate if anything is on the queue</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="111"></td>
+                <td class="line-content"> for (l in event_listeners) {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="112"></td>
+                <td class="line-content"> if (data['call_id'] &amp;&amp; data['call_id'] == event_listeners[l].trigger){</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="113"></td>
+                <td class="line-content"> event_listeners[l].func(data)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="114"></td>
+                <td class="line-content"> // and remove it from the listeners</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="115"></td>
+                <td class="line-content"> event_listeners.splice(l,1);</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="116"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="117"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="118"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="119"></td>
+                <td class="line-content"> //history.push(data);</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="120"></td>
+                <td class="line-content"> onmsg(data);</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="121"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="122"></td>
+                <td class="line-content"> </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="123"></td>
+                <td class="line-content"> ws.onclose = function(evt)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="124"></td>
+                <td class="line-content"> {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="125"></td>
+                <td class="line-content"> if (oncls)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="126"></td>
+                <td class="line-content"> {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="127"></td>
+                <td class="line-content"> oncls(evt)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="128"></td>
+                <td class="line-content"> } else {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="129"></td>
+                <td class="line-content"> //pass</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="130"></td>
+                <td class="line-content"> //onclose(evt)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="131"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="132"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="133"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="134"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="135"></td>
+                <td class="line-content"> function dumpSocketValue(data) {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="136"></td>
+                <td class="line-content"> //console.log(data)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="137"></td>
+                <td class="line-content"> $infodiv = $("&lt;div style='background-color:rgba(0,0,0,.2);padding:10px;margin:-3px;clear:both;'&gt;")</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="138"></td>
+                <td class="line-content"> .append("&lt;div style='height:1.2em;width:.5em;margin:-10px 20px -10px -10px;padding:10px;background-color:"+colors[Math.round(Math.random()*(colors.length-1))]+";float:left;'&gt;&lt;/div&gt;")</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="139"></td>
+                <td class="line-content"> .append("&lt;b&gt;"+data.messageType+"&lt;/b&gt;")</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="140"></td>
+                <td class="line-content"> .append(" from &lt;i&gt;"+data.origin+"&lt;/i&gt; ")</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="141"></td>
+                <td class="line-content"> if (data.logid) {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="142"></td>
+                <td class="line-content"> $("&lt;button&gt;").html("Extract full entry").click({d:data.logid},function(e){</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="143"></td>
+                <td class="line-content"> pause("pause"); // a forced pause</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="144"></td>
+                <td class="line-content"> callAPI("readItem",{"itemKey":e.data.d}) // the stream will read this on it's own</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="145"></td>
+                <td class="line-content"> }).appendTo($infodiv)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="146"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="147"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="148"></td>
+                <td class="line-content"> $("&lt;div&gt;")</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="149"></td>
+                <td class="line-content"> .css({'background-color':'rgba(0,0,0,.1)',"margin":"10px 0","padding":3})</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="150"></td>
+                <td class="line-content"> .append($infodiv)</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="151"></td>
+                <td class="line-content"> .append("&lt;div style='overflow:auto'&gt;&lt;pre&gt;"+JSON.stringify(data, null, 2)+"&lt;/pre&gt;&lt;/div&gt;")</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="152"></td>
+                <td class="line-content"> .prependTo($(".contents"))</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="153"></td>
+                <td class="line-content"> // var newval = "&lt;b&gt;"+data.messageType+"&lt;/b&gt;&lt;br&gt;from "+data.origin+"&lt;pre&gt;"+JSON.stringify(data, null, 2)+"&lt;/pre&gt;"</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="154"></td>
+                <td class="line-content"> // $(".contents").html(newval+$(".contents").html())</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="155"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="156"></td>
+                <td class="line-content"> var paused = false</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="157"></td>
+                <td class="line-content"> function pause(force){</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="158"></td>
+                <td class="line-content"> /*</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="159"></td>
+                <td class="line-content"> * if paused, unpause and restart from the last stream message position</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="160"></td>
+                <td class="line-content"> */</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="161"></td>
+                <td class="line-content"> if (force=="pause" &amp;&amp; paused == true) {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="162"></td>
+                <td class="line-content"> return;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="163"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="164"></td>
+                <td class="line-content"> if (paused !== false &amp;&amp; force!="pause") {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="165"></td>
+                <td class="line-content"> // assume our stream remains configured properly</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="166"></td>
+                <td class="line-content"> // then ask for the messages since N</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="167"></td>
+                <td class="line-content"> // [TODO - get a since category on the recent API service]</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="168"></td>
+                <td class="line-content"> callAPI("configureStream",{'liveStreaming':true})</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="169"></td>
+                <td class="line-content"> paused = false</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="170"></td>
+                <td class="line-content"> $(".js-pause-unpause").html("Pause Feed")</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="171"></td>
+                <td class="line-content"> } else {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="172"></td>
+                <td class="line-content"> paused = true //[TODO] have a way to get the latest logid</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="173"></td>
+                <td class="line-content"> callAPI("configureStream",{'liveStreaming':false})</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="174"></td>
+                <td class="line-content"> $(".js-pause-unpause").html("FEED PAUSED - Resume")</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="175"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="176"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="177"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="178"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/script&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="179"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/head&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="180"></td>
+                <td class="line-content"> <span class="html-tag">&lt;body&gt;</span> </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="181"></td>
+                <td class="line-content"> <span class="html-tag">&lt;h1&gt;</span>Message Server Waterfall<span class="html-tag">&lt;/h1&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="182"></td>
+                <td class="line-content"> <span class="html-tag">&lt;menu&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="183"></td>
+                <td class="line-content"> <span class="html-tag">&lt;a <span class="html-attribute-name">href</span>='<a class="html-attribute-value html-external-link" target="_blank" href="https://admin.synopticlabs.org/">/</a>'&gt;</span>Index<span class="html-tag">&lt;/a&gt;</span>                    //</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="184"></td>
+                <td class="line-content"> <span class="html-tag">&lt;a <span class="html-attribute-name">href</span>='<a class="html-attribute-value html-external-link" target="_blank" href="https://admin.synopticlabs.org/wiki/">/wiki/</a>'&gt;</span>Wiki<span class="html-tag">&lt;/a&gt;</span>                    // </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="185"></td>
+                <td class="line-content"> <span class="html-tag">&lt;a <span class="html-attribute-name">href</span>='<a class="html-attribute-value html-external-link" target="_blank" href="https://admin.synopticlabs.org/account/">/account/</a>'&gt;</span>My Account &amp;amp;
+                    Preferences<span class="html-tag">&lt;/a&gt;</span> //</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="186"></td>
+                <td class="line-content"> <span class="html-tag">&lt;a <span class="html-attribute-name">href</span>='<a class="html-attribute-value html-external-link" target="_blank" href="https://admin.synopticlabs.org/logout/">/logout/</a>'&gt;</span>Log Out<span class="html-tag">&lt;/a&gt;</span>                    </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="187"></td>
+                <td class="line-content"><span class="html-tag">&lt;/menu&gt;</span> <span class="html-tag">&lt;p&gt;</span>For doing dev on the message server. This lets you watch the raw feed of any messageType you specify. Extract full entry shows the entire contents of a
+                    message (not just what was delivered to the websocket stream). API responses (messageTypes starting with <span class="html-tag">&lt;code&gt;</span>API:<span class="html-tag">&lt;/code&gt;</span>) are sent just to this socket connection,
+                    are displayed in the interface, and cannot be filtered.<span class="html-tag">&lt;/p&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="188"></td>
+                <td class="line-content"> <span class="html-tag">&lt;a <span class="html-attribute-name">href</span>='<a class="html-attribute-value html-external-link" target="_blank" href="https://admin.synopticlabs.org/apps/message-events/sending.php">../message-events/sending.php</a>'&gt;</span>Learn
+                    more about sending messages to the message server<span class="html-tag">&lt;/a&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="189"></td>
+                <td class="line-content"> <span class="html-tag">&lt;div <span class="html-attribute-name">style</span>='<span class="html-attribute-value">background-color:rgba(255,255,255,.1);padding:5px;margin:10px 0;</span>'&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="190"></td>
+                <td class="line-content"> <span class="html-tag">&lt;b&gt;</span>Controls &amp;amp; Filtering<span class="html-tag">&lt;/b&gt;</span><span class="html-tag">&lt;br&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="191"></td>
+                <td class="line-content"> <span class="html-tag">&lt;form <span class="html-attribute-name">class</span>='<span class="html-attribute-value">js-feedupdate</span>'&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="192"></td>
+                <td class="line-content"> <span class="html-tag">&lt;table&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="193"></td>
+                <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span><span class="html-tag">&lt;td <span class="html-attribute-name">style</span>='<span class="html-attribute-value">text-align:right</span>'&gt;</span>Message Types:<span class="html-tag">&lt;/td&gt;</span>
+                    <span
+                        class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;input <span class="html-attribute-name">type</span>='<span class="html-attribute-value">text</span>' <span class="html-attribute-name">class</span>='<span class="html-attribute-value">js-messageType</span>'
+                        <span class="html-attribute-name">size</span>='<span class="html-attribute-value">50</span>' <span class="html-attribute-name">value</span>='<span class="html-attribute-value">ALL</span>'&gt;</span><span class="html-tag">&lt;/td&gt;</span>
+                        <span
+                            class="html-tag">&lt;td&gt;</span> comma-sep. "ALL"=all feeds. "unhandled_io" for rejections.<span class="html-tag">&lt;/td&gt;</span><span class="html-tag">&lt;/tr&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="194"></td>
+                <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span><span class="html-tag">&lt;td <span class="html-attribute-name">style</span>='<span class="html-attribute-value">text-align:right</span>'&gt;</span>Origins:<span class="html-tag">&lt;/td&gt;</span>
+                    <span
+                        class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;input <span class="html-attribute-name">type</span>='<span class="html-attribute-value">text</span>' <span class="html-attribute-name">class</span>='<span class="html-attribute-value">js-setorigin</span>'
+                        <span class="html-attribute-name">size</span>='<span class="html-attribute-value">50</span>' <span class="html-attribute-name">value</span>='<span class="html-attribute-value">ALL</span>'&gt;</span><span class="html-tag">&lt;/td&gt;</span>
+                        <span
+                            class="html-tag">&lt;td&gt;</span> comma-sep. "ALL"=all origins. Matches <span class="html-tag">&lt;b&gt;</span>any<span class="html-tag">&lt;/b&gt;</span> part of the origin string.<span class="html-tag">&lt;/td&gt;</span><span class="html-tag">&lt;/tr&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="195"></td>
+                <td class="line-content"> <span class="html-tag">&lt;tr&gt;</span><span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;/td&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="196"></td>
+                <td class="line-content"> <span class="html-tag">&lt;td&gt;</span><span class="html-tag">&lt;input <span class="html-attribute-name">type</span>='<span class="html-attribute-value">submit</span>' <span class="html-attribute-name">value</span>='<span class="html-attribute-value">Update My Feed</span>'&gt;</span>
+                    <span class="html-tag">&lt;/td&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="197"></td>
+                <td class="line-content"> <span class="html-tag">&lt;td&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="198"></td>
+                <td class="line-content"> <span class="html-tag">&lt;button <span class="html-attribute-name">class</span>='<span class="html-attribute-value">js-clear</span>'&gt;</span>Clear<span class="html-tag">&lt;/button&gt;</span> </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="199"></td>
+                <td class="line-content"> <span class="html-tag">&lt;button <span class="html-attribute-name">class</span>='<span class="html-attribute-value">js-clear-20</span>'&gt;</span> Clear and Show Last 20*<span class="html-tag">&lt;/button&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="200"></td>
+                <td class="line-content"> <span class="html-tag">&lt;button <span class="html-attribute-name">class</span>='<span class="html-attribute-value">js-pause-unpause</span>'&gt;</span>Pause Feed<span class="html-tag">&lt;/button&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="201"></td>
+                <td class="line-content"> <span class="html-tag">&lt;br&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="202"></td>
+                <td class="line-content"> <span class="html-tag">&lt;i&gt;</span>* Past messages excludes messages which did not have a <span class="html-tag">&lt;code&gt;</span>logid<span class="html-tag">&lt;/code&gt;</span><span class="html-tag">&lt;/i&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="203"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/td&gt;</span><span class="html-tag">&lt;/tr&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="204"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/table&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="205"></td>
+                <td class="line-content"> <span class="html-tag">&lt;br&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="206"></td>
+                <td class="line-content"> </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="207"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/form&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="208"></td>
+                <td class="line-content"> </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="209"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/div&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="210"></td>
+                <td class="line-content"> <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>='<span class="html-attribute-value">contents</span>' <span class="html-attribute-name">style</span>='<span class="html-attribute-value">font-size:1.2em;</span>'&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="211"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/div&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="212"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="213"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/body&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="214"></td>
+                <td class="line-content"><span class="html-tag">&lt;/html&gt;</span><span class="html-end-of-file"></span></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

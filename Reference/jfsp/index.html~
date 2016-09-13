@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>JFSP Spot Forecasts</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script> 
+<style>
+
+body {
+  font-family: 'Junge-Regular', serif;
+  src: URL('./source/Junge-Regular.ttf') format ('ttf');
+  width: 100%;
+  background-color: #A1A098;
+}
+
+#gap {
+  padding-left: 15px;
+  width: 100%;
+  background-color: #0AAA4C;
+}
+
+#text {
+  margin-top: 0;
+  padding-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  width: 1200px;
+  background-color: White;
+  overflow: hidden;
+}
+
+#stext {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  background-color: White;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+}
+
+footer {
+  padding: 2em 0 1em 0;
+  font-size: 14px;
+}
+
+h1 {
+  padding-left: 15px;
+  padding-right: -15px;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: left;
+  font-weight: 400;
+  font-size: 28px;
+  width: 100%;
+  background-color: #090840;
+  color: Yellow;
+}
+
+#body > p {
+  line-height: 1.5em;
+  text-rendering: optimizeLegibility;
+  text-align: center;
+}
+
+#all {
+	margin-top: 0;
+	padding-top: 0;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1200px;
+	height: 1400px;
+	background-color: White;
+	border: 3px solid #000;
+	overflow: hidden;
+}
+
+#WFO {
+	width: 300px;
+   position: relative;
+   z-index: 1;
+   border: 3px solid #000;
+}
+
+#WFO ul li
+{
+	width: 300px;
+}
+
+#map {
+	margin-left: auto;
+	margin-right: auto;
+   height: 750px;
+   width: 1000px;
+   border-top: 3px solid #000;
+  	border-bottom: 3px solid #000;
+}
+
+#charts {
+  margin-left: auto;
+  margin-right: auto;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+  background-color: #F5F5F5;
+  width: 1000px;
+}
+
+.chart {
+  fill: Black;
+  display: inline-block;
+  height: 300px;
+  margin-bottom: 20px;
+}
+
+.reset {
+  padding-left: 1em;
+  font-size: smaller;
+  color: Black;
+}
+
+.background.bar {
+  fill: #708090;
+}
+
+.foreground.bar {
+  fill: steelblue;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.brush rect.extent {
+  fill: Gray;
+  fill-opacity: 0.25;
+}
+
+.brush .resize path {
+  fill: #cccccc;
+  stroke: #666;
+}
+
+#elev-chart, #distance-chart, #leadtime-chart,  #spott-chart, #ndfdt-chart, #difft-chart, #spotrh-chart, #ndfdrh-chart, #diffrh-chart{
+  width: 300px;
+}
+
+#date-chart {
+  width: 900px;
+}
+
+#allTables {
+ margin-left: auto;
+ margin-right: auto;
+ width: 1000px;
+ height: 1000px;
+ overflow: hidden;
+ border-top: 3px solid #000;
+ border-bottom: 3px solid #000;
+ background-color: #F5F5F5;
+}
+
+#table1 {
+  width: 500px;
+  height: 500px;
+  background-image: url("./source/SummaryDiagTemperature.png"); 
+  font-size: large;
+  font-weight: bold;
+  float: left;
+}
+
+#table2 {
+  left: 500px;
+  width: 500px;
+  height: 500px;
+  background-image: url("./source/SummaryDiagRH.png"); 
+  font-size: large;
+  font-weight: bold;
+}
+
+#table3 {
+  width: 500px;
+  height: 500px;
+  background-image: url("./source/SISDiagTemperature.png"); 
+  font-size: small;
+  padding: 90px;
+  float: left;
+}
+
+#table4 {
+  left: 500px;
+  width: 500px;
+  height: 500px;
+  background-image: url("./source/SISDiagRH.png"); 
+  font-size: small;
+  padding: 90px;
+}
+
+.gridul {
+  text-align: center;
+  padding-right: 25px;
+}
+
+.gridlr {
+  text-align: center;
+  padding-top: 5px;
+  padding-left: 20px;
+}
+
+#t1a {
+  position: relative;
+  left: 22%;
+  top: 18%;
+}
+
+#t1b {
+  position: relative;
+  left: 18%;
+  top: 18%;
+}
+
+#t1c {
+  position: relative;
+  left: 36%;
+  top: 2%;
+}
+
+#t1d{
+  position: relative;
+  left: 10px;
+  top: 2%;
+}
+
+#t1e {
+  position: relative;
+  left: 36%;
+  bottom: 2%
+}
+
+#t1f {
+  position: relative;
+  bottom: 2%;
+  left: 2%;
+}
+
+#t1g {
+  position: relative;
+  left: 22%;
+  bottom: 18%;
+}
+
+#t1h {
+  position: relative;
+  left: 18%;
+  bottom: 18%;
+}
+
+#t2a {
+  position: relative;
+  left: 22%;
+  top: 18%;
+}
+
+#t2b {
+  position: relative;
+  left: 18%;
+  top: 18%;
+}
+
+#t2c {
+  position: relative;
+  left: 36%;
+  top: 2%;
+}
+
+#t2d{
+  position: relative;
+  top: 2%;
+}
+
+#t2e {
+  position: relative;
+  left: 36%;
+  bottom: 2%
+}
+
+#t2f {
+  position: relative;
+  bottom: 2%
+}
+
+#t2g {
+  position: relative;
+  left: 22%;
+  bottom: 18%;
+}
+
+#t2h {
+  position: relative;
+  left: 18%;
+  bottom: 18%;
+}
+
+aside {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  font-size: larger;
+  font-weight: bold;
+  background-color: White;
+}
+
+#totals, #sthead {
+  text-align: center;
+}
+
+#stats1{
+  padding-left: 55px;
+  text-align: left;
+}
+
+#stats2 {
+  padding-left: 10px;
+  text-align: left;
+}
+
+ul.menu{
+  display: table;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+}
+
+ul.menu li
+{
+  margin-bottom: 0;
+  margin-top: 14px;
+  width: 200px;
+  padding-top: 4px;
+  list-style: none;
+  display: table-cell;
+  float: left;
+  position: relative;
+  background-repeat: no-repeat;
+  background-color: #0A3063;
+  text-align: center;
+}
+
+ul.menu a
+{
+  text-align: center;
+}
+
+#menu
+{
+	padding-left: 7px;
+	padding-right: 6px;
+	margin-bottom: 0;
+	padding-bottom: 0;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 50px;
+   line-height: 40px;
+	background: #0A3063;
+	border: 1px solid #000;
+}
+
+#menu ul li a
+{
+	color: Black;
+	text-decoration: none;
+}
+
+#menu ul li a:visited
+{
+	color: Black;
+}
+
+#menu ul
+{
+	margin: 0 auto;
+}
+
+#menu-item-2, #menu-BoxCreek {
+	width: 120px;
+	background-image: url('./source/tab-small2.png');
+}
+
+#menu-statsAll, #menu-statsE, #menu-statsW, #menu-statsAllWF {
+	width: 150px;
+	background-image: url('./source/tab-med2.png');
+}
+
+#menu-statsWFOWF, #menu-allSpots {
+	width: 180px;
+	background-image: url('./source/tab-large2.png');
+}
+
+#menu-statsWFOPres, #menu-statsDatePres, #menu-statsDateWF {
+	width: 180px;
+	background-image: url('./source/tab-large2.png');
+}
+
+#menu-item-1 {
+	width: 80px;
+	background-image: url('./source/tab-xsmall-grn.png');
+}
+
+footer {
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+</style>
+
+<div id="body">
+
+<h1><b>Joint Fire Science Program <br />
+Spot Forecast Verification Project</b>
+</h1>
+<div id="gap"><br /></div>
+<div id="menu">
+		<ul id="menu-top-menu" class="menu"><b>
+			<li id="menu-item-1"><a title="Home" href="http://meso1.chpc.utah.edu/jfsp/">Home</a></li>
+			<li id="menu-statsDatePres"><a title="Prescribed Date" href="http://meso1.chpc.utah.edu/jfsp/statsDatePrescribed.html">Prescribed By Date</a></li>
+			<li id="menu-statsDateWF"><a title="Wildfire Date" href="http://meso1.chpc.utah.edu/jfsp/statsDateWildfire.html">Wildfires By Date</a></li>
+			<li id="menu-statsWFOPres"><a title="Prescribed WFO" href="http://meso1.chpc.utah.edu/jfsp/statsWFOPrescribed.html">Prescribed By WFO</a></li>
+			<li id="menu-statsWFOWF"><a title="Wildfire WFO" href="http://meso1.chpc.utah.edu/jfsp/statsWFOWildfire.html">Wildfires By WFO</a></li>
+			<li id="menu-statsAll"><a title="All Prescribed" href="http://meso1.chpc.utah.edu/jfsp/statsAll.html">All Prescribed</a></li>
+			<li id="menu-statsAllWF"><a title="All Wildfires" href="http://meso1.chpc.utah.edu/jfsp/statsAllWF.html">All Wildfires</a></li>
+			<li id="menu-BoxCreek"><a title="Box Creek" href="http://meso1.chpc.utah.edu/jfsp/BoxCreek.html">Box Creek</a></li>
+		</b></ul>
+</div>
+
+<div id="all">
+<div id="text"><b><p>This website uses innovative techniques for interactive data exploration to analyze a large set of spot weather forecasts
+issued by the National Weather Service. Spot forecasts are requested by local, state, and federal officials when a situation arises that
+requires a detailed short-term weather forecast to ensure the safety of those involved in search and rescue, hazardous materials, and
+wildland fire operations. A large number of these forecasts have been compared as part of my graduate research to both surface
+weather observations, the National Digital Forecast Database (NDFD), and the Real-Time Mesoscale Analysis (RTMA).</p>
+
+<img src="./source/Map.png" alt="Map" align=right border='1px solid #000'>
+<p>Above are tabbed links to pages exploring different subsets of the 100,000+ spot forecast database spanning from April 2009 to Present.</p>
+
+<p>"Prescribed By Date" and "Wildfires By Date" allow the user to view the forecasts issued as recently as yesterday by date.  Once a date
+has been selected (defaults to yesterday), the user can use the histograms to further explore and reduce the forecasts featured.</p>
+<img src="./source/Plots.png" alt="Plots" align=left border='1px solid #000'>
+<p>"Prescribed By WFO" and "Wildfires By WFO" allow subsets of the forecasts to be divided by WFO or by NWS Region.  This 
+enables the same exploration that was discussed concerning the previous two pages, only on a more geographically regional level.  While forecast characteristics
+and practices may vary from office to office, by selecting a WFO, the hope is that you are getting a relatively homogeneous set of forecasts, even while the actual
+forecaster may change.</p>
+<p>"Box Creek" is a illustrates the usage of all of the tools used in the Master's Thesis research on a single case study, including adjustable joint distribution tables.</p>
+
+<p>Most of the credit for these multivariate data exploration tools has to go to Jason Davies and <a href="https://github.com/square">Square</a>, 
+developers of <a href="https://github.com/square/crossfilter">Crossfilter</a>. The plots were built with <a href="http://mbostock.github.com/d3/">D3</a>.</p>
+
+<p>Many thanks to the Joint Fire Science Program for their support, as well as my advisor, Dr. John Horel.</p>
+
+<p><br>Below are examples of a spot forecast request (on the left) and the top section of the corresponding spot forecast (right) from the recent Patch Springs fire in Northern Utah.</p><br><br>
+<img src="./source/JustReq.png" alt="JustReq" align=left border='1px solid #000'>
+<img src="./source/JustFcst.png" alt="JustFcst" align=right border='1px solid #000'>
+</b></div>
+</div>
+
+<footer>
+  <span style="float:right;">
+    Crossfilter Released under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a>.
+  </span>
+  Copyright 2013 Matt Lammers, (email) matt.lammers@utah.edu, (cell) 801-440-1730
+</footer>
+
+</div>

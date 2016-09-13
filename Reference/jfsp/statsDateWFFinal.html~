@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Prescribed by Date</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="./leaflet/leaflet.css">
+<script src="./leaflet/leaflet.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script> 
+<script src="./source/crossfilter.v1.js"></script>
+<script src="./source/d3.v3.min.js"></script>
+<script src="./statsDateWFFinal.js"></script>
+
+<style>
+
+#gcontainer {
+	width: 450px;
+	height: 325px;
+	z-index: 9999;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: whitesmoke;
+	opacity: 1.0;
+	font-size: 12px;
+	border: 1px solid #000;
+}
+
+#mapbox {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+     height: 750px;
+     width: 1000px;
+     border-top: 3px solid #000;
+  	border-bottom: 3px solid #000;
+}
+
+#map {
+	position: absolute;
+	top: 0;
+	left: 0;
+     height: 750px;
+     width: 1000px;
+}
+
+#pdetails {
+	height: 120px;
+	width: 390px;
+}
+
+#ptemp, #prh, #pwind {
+	height: 60px;
+	width: 390px;
+}
+
+#close {
+   float: right;
+}
+
+body {
+  font-family: 'Junge-Regular', serif;
+  src: URL('./source/Junge-Regular.ttf') format ('ttf');
+  width: 100%;
+  background-color: #A1A098;
+}
+
+#gap {
+  width: 100%;
+  background-color: #0AAA4C;
+}
+
+#text {
+  margin-top: 0;
+  padding-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  width: 1000px;
+  background-color: White;
+}
+
+#stext {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  background-color: White;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+}
+
+footer {
+  padding: 2em 0 1em 0;
+  font-size: 14px;
+}
+
+h1 {
+  padding-left: 15px;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: left;
+  font-weight: 400;
+  font-size: 28px;
+  width: 100%;
+  background-color: #090840;
+  color: Yellow;
+}
+
+#body > p {
+  line-height: 1.5em;
+  text-rendering: optimizeLegibility;
+  text-align: center;
+}
+
+#all {
+	margin-top: 0;
+	padding-top: 0;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1000px;
+	background-color: White;
+	border-left: 3px solid #000;
+  	border-right: 3px solid #000;
+  	border-top: 3px solid #000;
+}
+
+#WFO {
+	width: 300px;
+   position: relative;
+   z-index: 1;
+   border: 3px solid #000;
+}
+
+#WFO ul li
+{
+	width: 300px;
+}
+
+#charts {
+  margin-left: auto;
+  margin-right: auto;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+  background-color: #F5F5F5;
+  width: 1000px;
+}
+
+.chart {
+  fill: Black;
+  display: inline-block;
+  height: 300px;
+  margin-bottom: 20px;
+}
+
+.reset {
+  padding-left: 1em;
+  font-size: smaller;
+  color: Black;
+}
+
+.background.bar {
+  fill: #708090;
+}
+
+.foreground.bar {
+  fill: steelblue;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.brush rect.extent {
+  fill: Gray;
+  fill-opacity: 0.25;
+}
+
+.brush .resize path {
+  fill: #cccccc;
+  stroke: #666;
+}
+
+#elev-chart, #distance-chart, #leadtime-chart{  
+  width: 300px;
+}
+
+#spott-chart, #obst-chart, #rtmat-chart, #ndfdt-chart, #spotobst-chart, #spotrtmat-chart, #ndfdobst-chart, #ndfdspott-chart, #spotrh-chart, #obsrh-chart, #rtmarh-chart, #ndfdrh-chart, #spotobsrh-chart, #spotobsrh-chart, #spotrtmarh-chart, #ndfdobsrh-chart, #ndfdspotrh-chart{
+  width: 300px;
+}
+
+aside {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  font-size: larger;
+  font-weight: bold;
+  background-color: White;
+}
+
+#totals, #sthead {
+  text-align: center;
+}
+
+#stats1{
+  padding-left: 55px;
+  text-align: left;
+}
+
+#stats2 {
+  padding-left: 10px;
+  text-align: left;
+}
+
+ul.menu{
+  display: table;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+}
+
+ul.menu li
+{
+  margin-bottom: 0;
+  margin-top: 14px;
+  width: 200px;
+  padding-top: 4px;
+  list-style: none;
+  display: table-cell;
+  float: left;
+  position: relative;
+  background-repeat: no-repeat;
+  background-color: #0A3063;
+  text-align: center;
+}
+
+ul.menu a
+{
+  text-align: center;
+}
+
+#menu
+{
+	margin-bottom: 0;
+	padding-bottom: 0;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 50px;
+   line-height: 40px;
+	background: #0A3063;
+	border: 1px solid #000;
+}
+
+#menu ul li a
+{
+	color: Black;
+	text-decoration: none;
+}
+
+#menu ul li a:visited
+{
+	color: Black;
+}
+
+#menu ul
+{
+	margin: 0 auto;
+}
+
+#menu-item-2 {
+	width: 120px;
+	background-image: url('./source/tab-small2.png');
+}
+
+#menu-statsAll, #menu-statsAllWF {
+	width: 150px;
+	background-image: url('./source/tab-med2.png');
+}
+
+#menu-statsWFOWF, #menu-allSpots {
+	width: 180px;
+	background-image: url('./source/tab-large2.png');
+}
+
+#menu-statsWFOPres, #menu-statsDateWF {
+	width: 180px;
+	background-image: url('./source/tab-large2.png');
+}
+
+#menu-statsDatePres {
+	width: 180px;
+	background-image: url('./source/tab-large-grn.png');
+}
+
+#menu-item-1 {
+	width: 80px;
+	background-image: url('./source/tab-xsmall2.png');
+}
+
+footer {
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+</style>
+
+<div id="body">
+
+<h1><b>Joint Fire Science Program <br />
+Spot Forecast Verification Project</b>
+</h1>
+<div id="gap"><br /></div>
+<div id="menu">
+		<ul id="menu-top-menu" class="menu"><b>
+			<li id="menu-item-1"><a title="Home" href="http://meso1.chpc.utah.edu/jfsp/">Home</a></li>
+         <li id="menu-allSpots"><a title="All Spots" href="http://meso1.chpc.utah.edu/jfsp/allSpots.html">All Spot Forecasts</a></li>
+			<li id="menu-statsAll"><a title="All Prescribed" href="http://meso1.chpc.utah.edu/jfsp/statsAll.html">All Prescribed</a></li>
+			<li id="menu-statsWFOPres"><a title="Prescribed WFO" href="http://meso1.chpc.utah.edu/jfsp/statsWFOPrescribed.html">Prescribed By WFO</a></li>
+			<li id="menu-statsDatePres"><a title="Prescribed Date" href="http://meso1.chpc.utah.edu/jfsp/statsDatePrescribed.html">Prescribed By Date</a></li>
+			<li id="menu-statsAllWF"><a title="All Wildfires" href="http://meso1.chpc.utah.edu/jfsp/statsAllWF.html">All Wildfires</a></li>
+			<li id="menu-statsWFOWF"><a title="Wildfire WFO" href="http://meso1.chpc.utah.edu/jfsp/statsWFOWildfire.html">Wildfires By WFO</a></li>
+			<li id="menu-statsDateWF"><a title="Wildfire Date" href="http://meso1.chpc.utah.edu/jfsp/statsDateWildfire.html">Wildfires By Date</a></li>
+		</b></ul>
+</div>
+<div id="all">
+<div id="text"><b><p>Here all of the wildfire forecasts going back to April 1, 2009 are selectable by date.  This page is updated at midnight MST
+with the analyzed forecasts from the previous day.
+The requirements for a forecast to make it into the analysis are as follows:<br />
+ - The forecast must include at least maximum temperature and minimum relative humidity for the afternoon of the day it is issued. <br />
+ - The forecast must have a National Weather Service or Remote Automated Weather Station (RAWS) within 50 km and 333 vertical meters that recorded both temperature
+ and relative humidity during the afternoon/evening forecasted. <br />
+ Each forecast icon on the map is selectable - a small window will open outlining a breakdown of all of the statistics featured in the histograms above. At the bottom
+ of the window is a link that will open in a new tab to the MesoWest page for the weather station that was used in the verification and a link to the forecast itself.</p></b>
+</div>
+	<div id="radio">
+		<input type="radio" id="radio1" name="radio"><label for="radio1">Metric</label>
+    		<input type="radio" id="radio2" name="radio" checked="checked"><label for="radio2">English</label>
+	</div>
+	<p>Date: <input type="text" id="datepicker" /></p>
+	<aside id="selection">  Date Selected: <span id="selected"></span></aside>
+	<div id="charts">
+	  <div id="spot">
+		  <h3>Spot Forecast Variable Charts</h3>
+		  <div>
+			  <div id="spott-chart" class="chart">
+			    <div class="title">Spot Forecast Max Temperature</div>
+			  </div>
+			  <div id="spotrh-chart" class="chart">
+			    <div class="title">Spot Forecast Min RH</div>
+			  </div>
+			  <div id="spotws-chart" class="chart">
+			    <div class="title">Spot Forecast Max Wind Speed</div>
+			  </div>
+		  </div>
+	  </div>
+	  <div id="ndfd">
+		  <h3>NDFD Forecast Variable Charts</h3>
+		  <div>
+			  <div id="ndfdt-chart" class="chart">
+			    <div class="title">NDFD Forecast Max Temperature</div>
+			  </div>
+			  <div id="ndfdrh-chart" class="chart">
+			    <div class="title">NDFD Forecast Min RH</div>
+			  </div>
+			  <div id="ndfdws-chart" class="chart">
+			    <div class="title">NDFD Forecast Max Wind Speed</div>
+			  </div>
+		  </div>
+	  </div>
+	  <div id="insitu">
+		  <h3>Observed Variable Charts</h3>
+		  <div>
+			  <div id="obst-chart" class="chart">
+			    <div class="title">Observed Max Temperature</div>
+			  </div>
+			  <div id="obsrh-chart" class="chart">
+			    <div class="title">Observed Min RH</div>
+			  </div>
+			  <div id="obsws-chart" class="chart">
+			    <div class="title">Observed Max Wind Speed</div>
+			  </div>
+		  </div>
+	  </div>
+	  <div id="rtma">
+		  <h3>RTMA Variable Charts</h3>
+		  <div>
+			  <div id="rtmat-chart" class="chart">
+			    <div class="title">RTMA Max Temperature</div>
+			  </div>
+			  <div id="rtmarh-chart" class="chart">
+			    <div class="title">RTMA Min RH</div>
+			  </div>
+			  <div id="rtmaws-chart" class="chart">
+			    <div class="title">RTMA Max Wind Speed</div>
+			  </div>
+		  </div>
+	  </div>
+	  <div id="spotobs">
+		  <h3>Spot Forecast minus Observed Charts</h3>
+		  <div>
+			  <div id="spotobst-chart" class="chart">
+			    <div class="title">Spot-Obs Max Temperature</div>
+			  </div>
+			  <div id="spotobsrh-chart" class="chart">
+			    <div class="title">Spot-Obs Min RH</div>
+			  </div>
+			  <div id="spotobsws-chart" class="chart">
+			    <div class="title">Spot-Obs Max Wind Speed</div>
+			  </div>
+		  </div>
+	  </div>
+	  <div id="spotrtma">
+		  <h3>Spot Forecast minus RTMA Charts</h3>
+		  <div>
+			  <div id="spotrtmat-chart" class="chart">
+			    <div class="title">Spot-RTMA Max Temperature</div>
+			  </div>
+			  <div id="spotrtmarh-chart" class="chart">
+			    <div class="title">Spot-RTMA Min RH</div>
+			  </div>
+			  <div id="spotrtmaws-chart" class="chart">
+			    <div class="title">Spot-RTMA Max Wind Speed</div>
+			  </div>
+		  </div>
+	  </div>
+	  <div id="ndfdobs">
+		  <h3>NDFD Forecast minus Observed Charts</h3>
+		  <div>
+			  <div id="ndfdobst-chart" class="chart">
+			    <div class="title">NDFD-Obs Max Temperature</div>
+			  </div>
+			  <div id="ndfdobsrh-chart" class="chart">
+			    <div class="title">NDFD-Obs Min RH</div>
+			  </div>
+			  <div id="ndfdobsws-chart" class="chart">
+			    <div class="title">NDFD-Obs Max Wind Speed</div>
+			  </div>
+		  </div>
+	  </div>
+	  <div id="ndfdspot">
+		  <h3>NDFD Forecast minus Spot Forecast Charts</h3>
+		  <div>
+			  <div id="ndfdspott-chart" class="chart">
+			    <div class="title">NDFD-Spot Max Temperature</div>
+			  </div>
+			  <div id="ndfdspotrh-chart" class="chart">
+			    <div class="title">NDFD-Spot Min RH</div>
+			  </div>
+			  <div id="ndfdspotws-chart" class="chart">
+			    <div class="title">NDFD-Spot Max Wind Speed</div>
+			  </div>
+		  </div>
+	  </div>
+	  <div id="other">
+		  <h3>Other Charts</h3>
+		  <div>
+			  <div id="elev-chart" class="chart">
+			    <div class="title">Elevation Difference</div>
+			  </div>
+			  <div id="distance-chart" class="chart">
+			    <div class="title">Distance</div>
+			  </div>
+			  <div id="leadtime-chart" class="chart">
+			    <div class="title">Forecast Lead Time</div>
+			  </div>
+		  </div>
+	  </div>
+	</div>
+
+<div id="stext">
+<aside id="totals"><span id="active">-</span> of <span id="total">-</span> forecasts selected. <br /><br /></aside>
+</div>
+<div id="mapbox">
+	<div id="gcontainer">
+		<button id="close">X</button><br><br>
+		<div id="accordion">
+			<h3>Details</h3>
+			<div id="pdetails"></div>
+			<h3>Temperature</h3>
+			<div id="ptemp"></div>
+			<h3>Relative Humidity</h3>
+			<div id="prh"></div>
+			<h3>Wind</h3>
+			<div id="pwind"></div>
+		</div>
+	</div>
+	<div id="map"></div>
+</div>
+</div>
+
+<footer>
+  <span style="float:right;">
+    Crossfilter Released under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a>.
+  </span>
+  Created 2013 Matt Lammers, (email) matt.lammers@utah.edu, (cell) 801-440-1730
+</footer>
+
+</div>

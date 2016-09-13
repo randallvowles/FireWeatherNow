@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>All Spot Forecasts</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script> 
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAsH9ocurPqlpWhUkwVm6oLptKS9tvmzHE&sensor=false"></script>
+<script src="./source/crossfilter.v1.js"></script>
+<script src="./source/d3.v3.min.js"></script>
+<script src="./allSpots.js"></script>
+
+<style>
+
+body {
+  font-family: 'Junge-Regular', serif;
+  src: URL('./source/Junge-Regular.ttf') format ('ttf');
+  width: 100%;
+  background-color: #A1A098;
+}
+
+#gap {
+  width: 100%;
+  background-color: #0AAA4C;
+}
+
+#text {
+  margin-top: 0;
+  padding-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  width: 1000px;
+  background-color: White;
+}
+
+#stext {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  background-color: White;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+}
+
+footer {
+  padding: 2em 0 1em 0;
+  font-size: 14px;
+}
+
+h1 {
+  padding-left: 15px;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: left;
+  font-weight: 400;
+  font-size: 28px;
+  width: 100%;
+  background-color: #090840;
+  color: Yellow;
+}
+
+#body > p {
+  line-height: 1.5em;
+  text-rendering: optimizeLegibility;
+  text-align: center;
+}
+
+#all {
+	margin-top: 0;
+	padding-top: 0;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1000px;
+	background-color: White;
+	border-left: 3px solid #000;
+  	border-right: 3px solid #000;
+  	border-top: 3px solid #000;
+}
+
+#WFO {
+	width: 300px;
+   position: relative;
+   z-index: 1;
+   border: 3px solid #000;
+}
+
+#WFO ul li
+{
+	width: 300px;
+}
+
+#map {
+	margin-left: auto;
+	margin-right: auto;
+   height: 750px;
+   width: 1000px;
+   border-top: 3px solid #000;
+  	border-bottom: 3px solid #000;
+}
+
+#charts {
+  margin-left: auto;
+  margin-right: auto;
+  border-top: 3px solid #000;
+  border-bottom: 3px solid #000;
+  background-color: #F5F5F5;
+  width: 1000px;
+}
+
+.chart {
+  fill: Black;
+  display: inline-block;
+  height: 300px;
+  margin-bottom: 20px;
+}
+
+.reset {
+  padding-left: 1em;
+  font-size: smaller;
+  color: Black;
+}
+
+.background.bar {
+  fill: #708090;
+}
+
+.foreground.bar {
+  fill: steelblue;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.brush rect.extent {
+  fill: Gray;
+  fill-opacity: 0.25;
+}
+
+.brush .resize path {
+  fill: #cccccc;
+  stroke: #666;
+}
+
+#elev-chart, #distance-chart, #leadtime-chart,  #spott-chart, #ndfdt-chart, #difft-chart, #spotrh-chart, #ndfdrh-chart, #diffrh-chart{
+  width: 300px;
+}
+
+#date-chart {
+  width: 900px;
+}
+
+.gridul {
+  text-align: center;
+  padding-right: 25px;
+}
+
+.gridlr {
+  text-align: center;
+  padding-top: 5px;
+  padding-left: 20px;
+}
+
+aside {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  font-size: larger;
+  font-weight: bold;
+  background-color: White;
+}
+
+#totals, #sthead {
+  text-align: center;
+}
+
+#stats1{
+  padding-left: 55px;
+  text-align: left;
+}
+
+#stats2 {
+  padding-left: 10px;
+  text-align: left;
+}
+
+ul.menu{
+  display: table;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+}
+
+ul.menu li
+{
+  margin-bottom: 0;
+  margin-top: 14px;
+  width: 200px;
+  padding-top: 4px;
+  list-style: none;
+  display: table-cell;
+  float: left;
+  position: relative;
+  background-repeat: no-repeat;
+  background-color: #0A3063;
+  text-align: center;
+}
+
+ul.menu a
+{
+  text-align: center;
+}
+
+#menu
+{
+	margin-bottom: 0;
+	padding-bottom: 0;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	height: 50px;
+   line-height: 40px;
+	background: #0A3063;
+	border: 1px solid #000;
+}
+
+#menu ul li a
+{
+	color: Black;
+	text-decoration: none;
+}
+
+#menu ul li a:visited
+{
+	color: Black;
+}
+
+#menu ul
+{
+	margin: 0 auto;
+}
+
+#menu-item-2 {
+	width: 120px;
+	background-image: url('./source/tab-small2.png');
+}
+
+#menu-statsAll, #menu-statsE, #menu-statsW, #menu-statsAllWF {
+	width: 150px;
+	background-image: url('./source/tab-med2.png');
+}
+
+#menu-statsWFOWF {
+	width: 180px;
+	background-image: url('./source/tab-large2.png');
+}
+
+#menu-allSpots {
+	width: 180px;
+	background-image: url('./source/tab-large-grn.png');
+}
+
+#menu-statsWFOPres, #menu-statsDatePres, #menu-statsDateWF {
+	width: 180px;
+	background-image: url('./source/tab-large2.png');
+}
+
+#menu-item-1 {
+	width: 80px;
+	background-image: url('./source/tab-xsmall2.png');
+}
+
+footer {
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+</style>
+
+<div id="body">
+
+<h1><b>Joint Fire Science Program <br />
+Spot Forecast Verification Project</b>
+</h1>
+<div id="gap"><br /></div>
+<div id="menu">
+		<ul id="menu-top-menu" class="menu"><b>
+			<li id="menu-item-1"><a title="Home" href="http://meso1.chpc.utah.edu/jfsp/">Home</a></li>
+         <li id="menu-allSpots"><a title="All Spots" href="http://meso1.chpc.utah.edu/jfsp/allSpots.html">All Spot Forecasts</a></li>
+			<li id="menu-statsAll"><a title="All Prescribed" href="http://meso1.chpc.utah.edu/jfsp/statsAll.html">All Prescribed</a></li>
+			<li id="menu-statsWFOPres"><a title="Prescribed WFO" href="http://meso1.chpc.utah.edu/jfsp/statsWFOPrescribed.html">Prescribed By WFO</a></li>
+			<li id="menu-statsDatePres"><a title="Prescribed Date" href="http://meso1.chpc.utah.edu/jfsp/statsDatePrescribed.html">Prescribed By Date</a></li>
+			<li id="menu-statsAllWF"><a title="All Wildfires" href="http://meso1.chpc.utah.edu/jfsp/statsAllWF.html">All Wildfires</a></li>
+			<li id="menu-statsWFOWF"><a title="Wildfire WFO" href="http://meso1.chpc.utah.edu/jfsp/statsWFOWildfire.html">Wildfires By WFO</a></li>
+			<li id="menu-statsDateWF"><a title="Wildfire Date" href="http://meso1.chpc.utah.edu/jfsp/statsDateWildfire.html">Wildfires By Date</a></li>
+		</b></ul>
+</div>
+<div id="all">
+<div id="text">
+<b><p>This version of the page contains all of the spot forecasts that are in the most basic sense parse-able.  It
+still allows selection of all forecasts, by type, and by WFO.  You can also adjust what month(s) you want to look
+at, as well as different "lead times", meaning the time between when the request was submitted and when the
+forecast was issued.  
+</p>
+
+<p>Search and Rescue forecasts are marked in green, Hazardous Materials are in blue, Prescribed burns are pink with fuchsia flames, and Wildfires are red with white flames.</p>
+
+<p>A Note: Any selectable set marked as "LARGE!" (Western Region, for example) will slow down your browser - select at your own risk.</p>
+</b>
+</div>
+<ul id="WFO">
+	<li><a>Selection Options</a>
+		<ul>
+			<li><a>Select By Region</a>
+				<ul>
+					<li id="ALA"><a>Alaska Region</a>
+						<ul>
+							<li id="AFC"><a>Anchorage</a></li>
+							<li id="AFG"><a>Fairbanks</a></li>
+							<li id="AJK"><a>Juneau</a></li>
+						</ul>
+					</li>
+					<li id="CEN"><a>Central Region (LARGE!)</a>
+						<ul>
+							<li id="ABR"><a>Aberdeen</a></li>
+							<li id="BIS"><a>Bismarck</a></li>
+							<li id="CYS"><a>Cheyenne</a></li>
+							<li id="LOT"><a>Chicago</a></li>
+							<li id="DVN"><a>Davenport/Quad Cities</a></li>
+							<li id="BOU"><a>Denver/Boulder</a></li>
+							<li id="DMX"><a>Des Moines</a></li>
+							<li id="DTX"><a>Detroit/Pontiac</a></li>
+							<li id="DDC"><a>Dodge City</a></li>
+							<li id="DLH"><a>Duluth</a></li>
+							<li id="APX"><a>Gaylord</a></li>
+							<li id="GLD"><a>Goodland</a></li>
+							<li id="FGF"><a>Grand Forks</a></li>
+							<li id="GJT"><a>Grand Junction</a></li>
+							<li id="GRR"><a>Grand Rapids</a></li>
+							<li id="GRB"><a>Green Bay</a></li>
+							<li id="GID"><a>Hastings</a></li>
+							<li id="IND"><a>Indianapolis</a></li>	
+							<li id="JKL"><a>Jackson, KY</a></li>	
+							<li id="EAX"><a>Kansas City/Pleasant Hill</a></li>	
+							<li id="ARX"><a>La Crosse</a></li>
+							<li id="ILX"><a>Lincoln</a></li>
+							<li id="LMK"><a>Louisville</a></li>
+							<li id="MQT"><a>Marquette</a></li>
+							<li id="MKX"><a>Milwaukee/Sullivan</a></li>
+							<li id="MPX"><a>Minneapolis/Twin Cities</a></li>
+							<li id="IWX"><a>Northern Indiana</a></li>
+							<li id="LBF"><a>North Platte</a></li>
+							<li id="OAX"><a>Omaha/Valley</a></li>
+							<li id="PAH"><a>Paducah</a></li>
+							<li id="PUB"><a>Pueblo</a></li>
+							<li id="UNR"><a>Rapid City</a></li>
+							<li id="RIW"><a>Riverton</a></li>
+							<li id="FSD"><a>Sioux Falls</a></li>
+							<li id="SGF"><a>Springfield</a></li>
+							<li id="LSX"><a>St. Louis</a></li>
+							<li id="TOP"><a>Topeka</a></li>
+							<li id="ICT"><a>Wichita</a></li>
+						</ul>
+					</li>
+					<li id="EAS"><a>Eastern Region</a>
+						<ul>
+							<li id="ALY"><a>Albany</a></li>
+							<li id="LWX"><a>Baltimore/Washington</a></li>
+							<li id="BGM"><a>Binghamton</a></li>
+							<li id="RNK"><a>Blacksburg</a></li>
+							<li id="BOX"><a>Boston</a></li>
+							<li id="BUF"><a>Buffalo</a></li>
+							<li id="BTV"><a>Burlington</a></li>
+							<li id="CAR"><a>Caribou</a></li>
+							<li id="CHS"><a>Charleston, SC</a></li>
+							<li id="RLX"><a>Charleston, WV</a></li>
+							<li id="CLE"><a>Cleveland</a></li>
+							<li id="CAE"><a>Columbia</a></li>
+							<li id="GYX"><a>Gray/Portland</a></li>
+							<li id="GSP"><a>Greenville-Spartanburg</a></li>
+							<li id="PHI"><a>Mount Holly/Philadelphia</a></li>
+							<li id="MHX"><a>Newport/Morehead City</a></li>
+							<li id="OKX"><a>New York/Upton</a></li>
+							<li id="PBZ"><a>Pittsburgh</a></li>
+							<li id="RAH"><a>Raleigh</a></li>
+							<li id="CTP"><a>State College</a></li>
+							<li id="AKQ"><a>Wakefield</a></li>
+							<li id="ILM"><a>Wilmington, NC</a></li>
+							<li id="ILN"><a>Wilmington, OH</a></li>
+						</ul>
+					</li>
+					<li id="PAC"><a>Pacific Region</a>
+						<ul>
+							<!--<li id="GUM"><a>Tiyan</a></li>-->
+							<li id="HFO"><a>Honolulu</a></li>
+						</ul>
+					</li>
+					<li id="SOU"><a>Southern Region (LARGE!)</a>
+						<ul>
+							<li id="ABQ"><a>Albuquerque</a></li>
+							<li id="AMA"><a>Amarillo</a></li>
+							<li id="EWX"><a>Austin/San Antonio</a></li>
+							<li id="BMX"><a>Birmingham</a></li>
+							<li id="BRO"><a>Brownsville</a></li>
+							<li id="CRP"><a>Corpus Christi</a></li>
+							<li id="FWD"><a>Dallas/Fort Worth</a></li>
+							<li id="EPZ"><a>El Paso</a></li>
+							<li id="HGX"><a>Houston/Galveston</a></li>
+							<li id="HUN"><a>Huntsville</a></li>
+							<li id="JAN"><a>Jackson, MS</a></li>
+							<li id="JAX"><a>Jacksonville</a></li>
+							<li id="KEY"><a>Key West</a></li>
+							<li id="LCH"><a>Lake Charles</a></li>
+							<li id="LUB"><a>Lubbock</a></li>
+							<li id="MLB"><a>Melbourne</a></li>
+							<li id="MEG"><a>Memphis</a></li>
+							<li id="MFL"><a>Miami</a></li>
+							<li id="MAF"><a>Midland/Odessa</a></li>
+							<li id="MOB"><a>Mobile/Pensacola</a></li>
+							<li id="MRX"><a>Morristown/Knoxville</a></li>
+							<li id="OHX"><a>Nashville</a></li>
+							<li id="LIX"><a>New Orleans/Baton Rouge</a></li>
+							<li id="OUN"><a>Norman/Oklahoma City</a></li>
+							<li id="LZK"><a>North Little Rock</a></li>
+							<li id="FFC"><a>Peachtree City/Atlanta</a></li>
+							<li id="SJT"><a>San Angelo</a></li>
+							<li id="SJU"><a>San Juan</a></li>
+							<li id="SHV"><a>Shreveport</a></li>
+							<li id="TAE"><a>Tallahassee</a></li>
+							<li id="TBW"><a>Tampa</a></li>
+							<li id="TSA"><a>Tulsa</a></li>
+						</ul>
+					</li>
+					<li id="WES"><a>Western Region (LARGE!)</a>
+						<ul>
+							<li id="BYZ"><a>Billings</a></li>
+							<li id="BOI"><a>Boise</a></li>
+							<li id="LKN"><a>Elko</a></li>
+							<li id="EKA"><a>Eureka</a></li>
+							<li id="FGZ"><a>Flagstaff</a></li>
+							<li id="GGW"><a>Glasgow</a></li>
+							<li id="TFX"><a>Great Falls</a></li>
+							<li id="VEF"><a>Las Vegas</a></li>
+							<li id="LOX"><a>Los Angeles/Oxnard</a></li>
+							<li id="MFR"><a>Medford</a></li>
+							<li id="MSO"><a>Missoula</a></li>
+							<li id="PDT"><a>Pendleton</a></li>
+							<li id="PSR"><a>Phoenix</a></li>
+							<li id="PIH"><a>Pocatello</a></li>
+							<li id="PQR"><a>Portland</a></li>
+							<li id="REV"><a>Reno</a></li>
+							<li id="STO"><a>Sacramento</a></li>
+							<li id="SLC"><a>Salt Lake City</a></li>
+							<li id="SGX"><a>San Diego</a></li>
+							<li id="MTR"><a>San Francisco Bay Area/Monterey</a></li>
+							<li id="HNX"><a>San Joaquin Valley/Hanford</a></li>
+							<li id="SEW"><a>Seattle</a></li>
+							<li id="OTX"><a>Spokane</a></li>
+							<li id="TWC"><a>Tucson</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li><a>Select By Request Type</a>
+				<ul>
+					<li id="PRE"><a>Prescribed Burns (LARGE!)</a></li>
+					<li id="WFU"><a>Wildfire (LARGE!)</a></li>
+					<li id="SAR"><a>Search And Rescue</a></li>
+					<li id="HAZ"><a>Hazmat</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+<aside id="selection">  Office/Region/Request Type Selected: <span id="selected"></span></aside>
+<div id="charts">
+  <div id="leadtime-chart" class="chart">
+    <div class="title">Forecast Lead Time (minutes)</div>
+  </div>
+  <div id="date-chart" class="chart">
+    <div class="title">Month</div>
+  </div>
+</div>
+
+<div id="stext">
+<aside id="totals"><span id="active">-</span> of <span id="total">-</span> forecasts selected. <br /><br /></aside>
+</div>
+<div id="map"></div>
+</div>
+<footer>
+  <span style="float:right;">
+    Crossfilter Released under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a>.
+  </span>
+  Copyright 2013 Matt Lammers
+</footer>
+
+
+</div>
