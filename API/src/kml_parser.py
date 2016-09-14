@@ -4,26 +4,26 @@ import requests
 import json
 import gmplot
 import csv
-
+import kml2geojson
 
 def build_table(mapping):
-    sep = ','
-    output = 'Name' + sep + 'Coordinates\n'
-    points = ''
-    lines = ''
-    shapes = ''
-    for key in mapping:
-        #print(mapping[key])
-        coord_str = mapping[key]['coordinates'] + sep
-        if 'LookAt' in mapping[key]:  # points
-           points += key + sep + coord_str + "\n"
-        elif 'LineString' in mapping[key]:  # lines
-            lines += key + sep + coord_str + "\n"
-        else:  # shapes
-            shapes += key + sep + coord_str + "\n"
-    output += points + lines + shapes
-    return output
-    #return mapping
+    # sep = ','
+    # output = 'Name' + sep + 'Coordinates\n'
+    # points = ''
+    # lines = ''
+    # shapes = ''
+    # for key in mapping:
+    #     #print(mapping[key])
+    #     coord_str = mapping[key]['coordinates'] + sep
+    #     if 'LookAt' in mapping[key]:  # points
+    #        points += key + sep + coord_str + "\n"
+    #     elif 'LineString' in mapping[key]:  # lines
+    #         lines += key + sep + coord_str + "\n"
+    #     else:  # shapes
+    #         shapes += key + sep + coord_str + "\n"
+    # output += points + lines + shapes
+    #return output
+    return mapping
 
 
 class PlacemarkHandler(xml.sax.handler.ContentHandler):
@@ -74,17 +74,24 @@ if __name__ == '__main__':
     handler = PlacemarkHandler()
     parser.setContentHandler(handler)
     parser.parse(kml)
-    kml.close()
-    outstr = build_table(handler.mapping)
-    out_filename = filename[:-3] + "csv"
+    PeriDict = {}
+    outstr = dict(handler.mapping)
+    for key in outstr:
+        PeriDict[key] = []
+        PeriDict[key].append(outstr[key]['coordinates'])
+file = open(filename, 'w')
+file.write(str(r.content))
+
+    #print(outstr)
+    #out_filename = filename[:-3] + "json"
     #f = open(out_filename, "w")
-    with open(out_filename, 'w') as f:
-        json.dump(outstr, f)
-with open('ActiveFirePerimeters.csv', 'rb') as f:
-    reader = csv.reader(f)
+    #with open(out_filename, 'w') as f:
+        #json.dump(outstr, f)
+#with open('ActiveFirePerimeters.csv', 'rb') as f:
+    #reader = csv.reader(f)
     #AFPlist = array(reader)
 
-print(reader)
+#print(reader)
 #gmap = gmplot.GoogleMapPlotter(48, -98, 4)
 #gmap.polygon(outstr)
 #gmap.draw("my-fireperimetermap.html")
