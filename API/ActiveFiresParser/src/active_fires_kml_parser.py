@@ -69,6 +69,7 @@ class ActiveFiresKML:
         file_out = self.args['output_dir'] + self.args['output_file']
         with open(file_out, 'w') as file_out:
             json.dump(dict_, file_out, sort_keys=True, indent=4)
+            #json.dump(dict_, file_out)
 
 
 # def main():
