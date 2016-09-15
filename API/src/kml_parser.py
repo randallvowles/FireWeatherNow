@@ -2,9 +2,9 @@ import xml.sax
 import xml.sax.handler
 import requests
 import json
-import gmplot
-import csv
-import kml2geojson
+#import gmplot
+#import csv
+#import kml2geojson
 
 def build_table(mapping):
     # sep = ','
