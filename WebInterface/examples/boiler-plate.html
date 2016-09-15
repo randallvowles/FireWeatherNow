@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MesonetJS Boiler Plate</title>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="../dist/mesonet-current.min.js"></script>
+    <script>
+        var M = new mesonet(); // Outside so we can see it from the console
+
+        function main() {
+
+            // Configure Mesonet instance
+            M.setApiToken("demotoken");
+            if (M.windowArgs() === "undefined") {
+                M.fetch({
+                    state: "ut",
+                });
+            } else {
+                M.fetch(0);
+            }
+
+            var ready = M.async();
+            $.when(ready).done(function() {
+                M.showResponse();
+            });
+        }
+
+    </script>
+
+</head>
+
+<body onload="main();">
+    You can access MesonetJS from the console by <b>M</b>.
+</body>
+
+</html>

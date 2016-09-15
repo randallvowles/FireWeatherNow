@@ -49,7 +49,7 @@ f.write(str(stid_dict))
 f2.write(str(fire_dict))
 f.close
 f2.close
-
+print(stid_dict['Pioneer Fire (Wildfire)'])
 
 '''
 # API query gets latest 12 hours of data from RAWS and AWOS/ASOS/FAA stations

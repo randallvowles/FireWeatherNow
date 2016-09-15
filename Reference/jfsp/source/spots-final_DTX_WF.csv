@@ -1,2 +1,0 @@
-date,file,distance,elev,leadtime,spott,spotrh,spotwmax,spotrherr,obt,obrh,obwmax,ndfdt,ndfdrh,ndfdrherr,ndfdwmax,ndfdspotrh,rtmat,rtmarh,rtmawmax,rtmarherr,lat,lon,stnused
-1204191156,FWS.DTX.20120419.COUNT.01.20120419.115614.106675756,21,-30,55,12.2222222222,55,6.7056,-3.8,16.0,58.8,5.65888884,13.2479187012,55.1939758114,-3.60602418861,6.78644,0.193975811385,12.8680969238,66.8051881323,6.01353,-11.8051881323,43.58566,-83.69315,KHYX

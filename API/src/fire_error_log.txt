@@ -693,3 +693,10 @@
 [38] Bad coordinates for http://inciweb.nwcg.gov/incident/4906/
 [43] Bad coordinates for http://inciweb.nwcg.gov/incident/4988/
 [47] Bad coordinates for http://inciweb.nwcg.gov/incident/5012/
+[11] Bad coordinates for http://inciweb.nwcg.gov/incident/5007/
+[12] Bad coordinates for http://inciweb.nwcg.gov/incident/5021/
+[17] Bad coordinates for http://inciweb.nwcg.gov/incident/5028/
+[20] Bad coordinates for http://inciweb.nwcg.gov/incident/4725/
+[34] Bad coordinates for http://inciweb.nwcg.gov/incident/4703/
+[43] Bad coordinates for http://inciweb.nwcg.gov/incident/4906/
+[48] Bad coordinates for http://inciweb.nwcg.gov/incident/4988/

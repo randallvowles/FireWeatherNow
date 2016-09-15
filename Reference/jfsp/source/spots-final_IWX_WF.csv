@@ -1,2 +1,0 @@
-date,file,distance,elev,leadtime,spott,spotrh,spotwmax,spotrherr,obt,obrh,obwmax,ndfdt,ndfdrh,ndfdrherr,ndfdwmax,ndfdspotrh,rtmat,rtmarh,rtmawmax,rtmarherr,lat,lon,stnused
-1304051133,FWS.IWX.20130405.TRSPB.01.20130405.113327.1365161607527,33,-3,11,11.6666666667,39,4.4704,13.43,10.6,25.57,7.20222216,11.149987793,38.9684833344,13.3984833344,4.08795,-0.031516665561,10.4666992188,22.7608935462,6.26355,16.2391064538,41.03,-86.69,KOXI
