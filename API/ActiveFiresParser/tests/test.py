@@ -13,7 +13,7 @@ def list_fires():
 
     active_fires = AF.parser()
     for k in active_fires:
-        print k
+        print(k)
 
 
 def save_parsed_file():

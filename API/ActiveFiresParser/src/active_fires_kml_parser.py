@@ -1,5 +1,5 @@
 # encoding: utf-8
-"""Parse crap from active files kml"""
+"""Parse crap from active fires kml"""
 #TODO error try/catch, add urllib get kml function, add epoch date to save, location name, regex to pull out name and date.
 
 class ActiveFiresKML:
@@ -8,6 +8,8 @@ class ActiveFiresKML:
         self.args = args
 
     def get_kml(self, file_):
+        import urllib
+        self.file = urllib.request.urlopen('http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/ActiveFirePerimeters.kml')
         # Need to add the URLLIB stuff to get the KML file and return a string.
         return open(file_, 'r').read()
 
