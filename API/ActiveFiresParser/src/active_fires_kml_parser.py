@@ -3,13 +3,13 @@
 #TODO error try/catch, add urllib get kml function, add epoch date to save, location name, regex to pull out name and date.
 
 class ActiveFiresKML:
+
     def __init__(self, args):
         self.args = args
 
-
     def get_kml(self, file_):
+        # Need to add the URLLIB stuff to get the KML file and return a string.
         return open(file_, 'r').read()
-
 
     def parser(self):
         """
@@ -45,8 +45,10 @@ class ActiveFiresKML:
                     'outerBoundaryIs']['LinearRing'][
                     'coordinates'].split('\n')
 
+                npoly_els = len(_coords)
+                tmp['n_polygon_elements'] = npoly_els
                 tmp['polygon'] = []
-                for y in xrange(len(_coords)):
+                for y in xrange(npoly_els):
                     _junk = _coords[y].split(',')
                     tmp['polygon'].append({
                         "lon": float(_junk[0]),
@@ -54,11 +56,11 @@ class ActiveFiresKML:
                     })
                 first_pass = True
 
-                that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
+                that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[
+                    0]] = tmp
                 tmp = dict()
 
         return that
-
 
     def emitter(self, dict_):
         """Emit the file"""
@@ -67,6 +69,7 @@ class ActiveFiresKML:
         file_out = self.args['output_dir'] + self.args['output_file']
         with open(file_out, 'w') as file_out:
             json.dump(dict_, file_out, sort_keys=True, indent=4)
+            #json.dump(dict_, file_out)
 
 
 # def main():
