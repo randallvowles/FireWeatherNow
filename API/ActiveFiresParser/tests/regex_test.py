@@ -19,11 +19,11 @@ unit_id = re.search(r'Unit Identifer(.*?)(\w+)', junk).group(0)
 fire_code = re.search(r'Fire Code:(.*?)(\w+)', junk).group(0)
 fire_name = re.search(r'Fire Name(.*?)(\w+\s\w+)', junk).group(0)
 acres = re.search(r'Acres(.*?)(\d+)', junk).group(0)
-start_date = re.search(r'Perimeter Date(.*?)(\d+)(\w+),', junk).group(0)
+start_date = re.search(r'Perimeter Date(.*?)(\d+\/\d+\/\d+)', junk).group(0)
 unique_id = re.search(r'Unique(.*?)(\d+)(-\w+)(-\d+)', junk).group(0)
 
 
 metadata = {agency,unit_id,fire_code,fire_name,acres,start_date,unique_id}
-# print(agency)
+# print(junk)
 # print(unit_id)
 print(metadata)
