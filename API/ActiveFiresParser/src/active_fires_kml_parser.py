@@ -1,6 +1,6 @@
 # encoding: utf-8
 """Parse crap from active files kml"""
-
+#TODO error try/catch, add urllib get kml function, add epoch date to save, location name, regex to pull out name and date.
 
 class ActiveFiresKML:
     def __init__(self, args):
