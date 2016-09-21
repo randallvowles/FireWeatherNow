@@ -25,13 +25,13 @@ class ActiveFiresKML:
         junk = re.sub(r'<b>(.*?)</b>', "", junk)
         junk = re.sub(r'\n', ",", junk)
         # pull out the relevent metadata
-        agency = (re.search(r'Agency(.*?)(\w+)', junk).group(0)).split(':')
-        unit_id = (re.search(r'Unit Identifer(.*?)(\w+)', junk).group(0)).split(':')
-        fire_code = (re.search(r'Fire Code:(.*?)(\w+)', junk).group(0)).split(':')
-        fire_name = (re.search(r'Fire Name(.*?)(\w+\s\w+)', junk).group(0)).split(':')
-        acres = (re.search(r'Acres(.*?)(\d+)', junk).group(0)).split(':')
-        start_date = (re.search(r'Perimeter Date(.*?)(\d+\/\d+\/\d+)', junk).group(0)).split(':')
-        unique_id = (re.search(r'Unique(.*?)(\d+)(-\w+)(-\d+)', junk).group(0)).split(':')
+        agency = (re.search(r'Agency(.*?)(\w+)', junk).group(0)).split(': ')
+        unit_id = (re.search(r'Unit Identifer(.*?)(\w+)', junk).group(0)).split(': ')
+        fire_code = (re.search(r'Fire Code:(.*?)(\w+)', junk).group(0)).split(': ')
+        fire_name = (re.search(r'Fire Name(.*?)(\w+\s\w+)', junk).group(0)).split(': ')
+        acres = (re.search(r'Acres(.*?)(\d+)', junk).group(0)).split(': ')
+        start_date = (re.search(r'Perimeter Date(.*?)(\d+\/\d+\/\d+)', junk).group(0)).split(': ')
+        unique_id = (re.search(r'Unique(.*?)(\d+)(-\w+)(-\d+)', junk).group(0)).split(': ')
         metadata = {agency[0]:agency[1], unit_id[0]:unit_id[1], 
                     fire_code[0]:fire_code[1], fire_name[0]:fire_name[1],
                     acres[0]:acres[1], start_date[0]:start_date[1], 
