@@ -9,9 +9,36 @@ class ActiveFiresKML:
 
     def get_kml(self, file_):
         import urllib
-        self.file = urllib.request.urlopen('http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/ActiveFirePerimeters.kml')
+        kml_url = 'http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/ActiveFirePerimeters.kml'
+        self.file = urllib.urlopen(kml_url)
         # Need to add the URLLIB stuff to get the KML file and return a string.
         return open(file_, 'r').read()
+        
+    def desc_regexr(self, string):
+        import re
+        # Remove spaces
+        remove_spaces = re.sub(r'\n\s+', "", string)
+        #print remove_spaces
+        remove_hrefs = re.sub(r'<a href(.*?)<\/a>', "", remove_spaces)
+        #print remove_hrefs
+        junk = re.sub(r'<br \/>', r'\n', remove_hrefs)
+        junk = re.sub(r'<b>(.*?)</b>', "", junk)
+        junk = re.sub(r'\n', ",", junk)
+        # pull out the relevent metadata
+        agency = (re.search(r'Agency(.*?)(\w+)', junk).group(0)).split(':')
+        unit_id = (re.search(r'Unit Identifer(.*?)(\w+)', junk).group(0)).split(':')
+        fire_code = (re.search(r'Fire Code:(.*?)(\w+)', junk).group(0)).split(':')
+        fire_name = (re.search(r'Fire Name(.*?)(\w+\s\w+)', junk).group(0)).split(':')
+        acres = (re.search(r'Acres(.*?)(\d+)', junk).group(0)).split(':')
+        start_date = (re.search(r'Perimeter Date(.*?)(\d+\/\d+\/\d+)', junk).group(0)).split(':')
+        unique_id = (re.search(r'Unique(.*?)(\d+)(-\w+)(-\d+)', junk).group(0)).split(':')
+        metadata = {agency[0]:agency[1], unit_id[0]:unit_id[1], 
+                    fire_code[0]:fire_code[1], fire_name[0]:fire_name[1],
+                    acres[0]:acres[1], start_date[0]:start_date[1], 
+                    unique_id[0]:unique_id[1]}
+        return metadata
+
+
 
     def parser(self):
         """
@@ -31,11 +58,11 @@ class ActiveFiresKML:
 
         first_pass = True
         nkeys = len(this['kml']['Document']['Placemark'])
-        for x in xrange(nkeys):
+        for x in range(nkeys):
             if first_pass is True:
                 tmp['name'] = this['kml']['Document']['Placemark'][x]['name']
-                tmp['desc'] = this['kml']['Document'][
-                    'Placemark'][x]['description']
+                tmp['desc'] = self.desc_regexr(this['kml']['Document'][
+                    'Placemark'][x]['description'])
                 tmp['lon'] = this['kml']['Document'][
                     'Placemark'][x]['LookAt']['longitude']
                 tmp['lat'] = this['kml']['Document'][
@@ -50,7 +77,7 @@ class ActiveFiresKML:
                 npoly_els = len(_coords)
                 tmp['n_polygon_elements'] = npoly_els
                 tmp['polygon'] = []
-                for y in xrange(npoly_els):
+                for y in range(npoly_els):
                     _junk = _coords[y].split(',')
                     tmp['polygon'].append({
                         "lon": float(_junk[0]),
