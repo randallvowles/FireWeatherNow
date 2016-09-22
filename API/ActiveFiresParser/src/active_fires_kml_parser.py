@@ -1,6 +1,6 @@
 # encoding: utf-8
 """Parse crap from active fires kml"""
-#TODO error try/catch, add urllib get kml function, add epoch date to save, location name, regex to pull out name and date.
+#TODO error try/catch, add epoch date to save
 
 class ActiveFiresKML:
 
@@ -12,7 +12,7 @@ class ActiveFiresKML:
         kml_url = 'http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/ActiveFirePerimeters.kml'
         self.file = urllib.urlopen(kml_url)
         # Need to add the URLLIB stuff to get the KML file and return a string.
-        return open(file_, 'r').read()
+        return str((self.file).read())
         
     def desc_regexr(self, string):
         import re
@@ -52,7 +52,9 @@ class ActiveFiresKML:
         import xmltodict
 
         # Initiate the parser's working vars
-        this = xmltodict.parse(self.get_kml(self.args['source']))
+        this = xmltodict.parse(self.get_kml)
+        that = dict()
+        #this = xmltodict.parse(self.get_kml(self.args['source']))
         that = dict()
         tmp = dict()
 
@@ -84,7 +86,6 @@ class ActiveFiresKML:
                         "lat": float(_junk[1])
                     })
                 first_pass = True
-
                 that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[
                     0]] = tmp
                 tmp = dict()
@@ -94,8 +95,11 @@ class ActiveFiresKML:
     def emitter(self, dict_):
         """Emit the file"""
         import json
-
-        file_out = self.args['output_dir'] + self.args['output_file']
+        import time
+        current_time = time.strftime('%Y, %m, %d, %H, %M', time.gmtime())
+        output_file = 'current' + current_time + '.json',
+        output_dir = '..\output\\'
+        file_out = output_dir + output_file
         with open(file_out, 'w') as file_out:
             json.dump(dict_, file_out, sort_keys=True, indent=4)
             #json.dump(dict_, file_out)
