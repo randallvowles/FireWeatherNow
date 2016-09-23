@@ -7,20 +7,25 @@ class ActiveFiresKML:
     def __init__(self, args):
         self.args = args
 
+    raw_string = ''
+
     def get_kml(self, file_):
-        import urllib
+        import urllib2
         kml_url = 'http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/ActiveFirePerimeters.kml'
-        self.file = urllib.urlopen(kml_url)
+        self.file = urllib2.urlopen(kml_url)
+        raw_string = str((self.file).read())
         # Need to add the URLLIB stuff to get the KML file and return a string.
-        return str((self.file).read())
-        
+        return self.raw_string
+
     def desc_regexr(self, string):
         import re
         # Remove spaces
         remove_spaces = re.sub(r'\n\s+', "", string)
-        #print remove_spaces
+        link_url = re.search(r'(http://inciweb.nwcg.gov/incident/)(.*?)(\d+)', remove_spaces)
+        # print link_url
+        # print remove_spaces
         remove_hrefs = re.sub(r'<a href(.*?)<\/a>', "", remove_spaces)
-        #print remove_hrefs
+        # print remove_hrefs
         junk = re.sub(r'<br \/>', r'\n', remove_hrefs)
         junk = re.sub(r'<b>(.*?)</b>', "", junk)
         junk = re.sub(r'\n', ",", junk)
@@ -32,32 +37,26 @@ class ActiveFiresKML:
         acres = (re.search(r'Acres(.*?)(\d+)', junk).group(0)).split(': ')
         start_date = (re.search(r'Perimeter Date(.*?)(\d+\/\d+\/\d+)', junk).group(0)).split(': ')
         unique_id = (re.search(r'Unique(.*?)(\d+)(-\w+)(-\d+)', junk).group(0)).split(': ')
-        metadata = {agency[0]:agency[1], unit_id[0]:unit_id[1], 
+        metadata = {agency[0]:agency[1], unit_id[0]:unit_id[1],
                     fire_code[0]:fire_code[1], fire_name[0]:fire_name[1],
-                    acres[0]:acres[1], start_date[0]:start_date[1], 
-                    unique_id[0]:unique_id[1]}
-        return metadata
+                    acres[0]:acres[1], start_date[0]:start_date[1],
+                    unique_id[0]:unique_id[1], "Link URL":link_url}
+        return self.metadata
 
-
-
-    def parser(self):
+    def parser(raw_string):
         """
         Active fires KML parser
-
         Args: (as dict)
             source, source path of KML file
             output_file, emitter path
-
         """
         import xmltodict
-
         # Initiate the parser's working vars
-        this = xmltodict.parse(self.get_kml)
+        this = xmltodict.parse(raw_string)
         that = dict()
         #this = xmltodict.parse(self.get_kml(self.args['source']))
         that = dict()
         tmp = dict()
-
         first_pass = True
         nkeys = len(this['kml']['Document']['Placemark'])
         for x in range(nkeys):
@@ -70,12 +69,10 @@ class ActiveFiresKML:
                 tmp['lat'] = this['kml']['Document'][
                     'Placemark'][x]['LookAt']['latitude']
                 first_pass = False
-
             else:
                 _coords = this['kml']['Document']['Placemark'][1]['Polygon'][
                     'outerBoundaryIs']['LinearRing'][
                     'coordinates'].split('\n')
-
                 npoly_els = len(_coords)
                 tmp['n_polygon_elements'] = npoly_els
                 tmp['polygon'] = []
@@ -89,7 +86,6 @@ class ActiveFiresKML:
                 that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[
                     0]] = tmp
                 tmp = dict()
-
         return that
 
     def emitter(self, dict_):
@@ -107,7 +103,6 @@ class ActiveFiresKML:
 
 # def main():
 #     """Main handler"""
-
 #     args = {
 #         "source": "./static_data/ActiveFirePerimeters.kml",
 #         "output_dir": "./output/",
@@ -115,7 +110,6 @@ class ActiveFiresKML:
 #     }
 #     AF = ActiveFiresKML(args)
 #     AF.emitter(AF.parser())
-
-
 # if __name__ == "__main__":
 #     main()
+

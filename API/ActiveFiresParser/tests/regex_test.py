@@ -5,6 +5,8 @@ def desc_regexr (string):
     # Remove spaces
     remove_spaces = re.sub(r'\n\s+', "", string)
     #print remove_spaces
+    link_url = re.search(r'(http://inciweb.nwcg.gov/incident/)(.*?)(\d+)', remove_spaces)
+    print link_url
     remove_hrefs = re.sub(r'<a href(.*?)<\/a>', "", remove_spaces)
     #print remove_hrefs
     junk = re.sub(r'<br \/>', r'\n', remove_hrefs)
@@ -21,7 +23,7 @@ def desc_regexr (string):
     metadata = {agency[0]:agency[1], unit_id[0]:unit_id[1], 
                 fire_code[0]:fire_code[1], fire_name[0]:fire_name[1],
                 acres[0]:acres[1], start_date[0]:start_date[1], 
-                unique_id[0]:unique_id[1]}
+                unique_id[0]:unique_id[1], "Link URL":link_url}
     return metadata
 metadata = desc_regexr(string)                
 print(metadata)

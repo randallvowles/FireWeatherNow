@@ -17,11 +17,11 @@ def list_fires():
 
 
 def save_parsed_file():
-    args = {
-        "source": "../static_data/ActiveFirePerimeters.kml",
-        "output_dir": "../output/",
-        "output_file": "current.json"
-    }
+    # args = {
+    #     "source": "../static_data/ActiveFirePerimeters.kml",
+    #     "output_dir": "../output/",
+    #     "output_file": "current.json"
+    # }
     AF = ActiveFiresKML.ActiveFiresKML(args)
     AF.emitter(AF.parser())
 
