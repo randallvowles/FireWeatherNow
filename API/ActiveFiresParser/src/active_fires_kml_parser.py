@@ -4,18 +4,15 @@
 
 class ActiveFiresKML:
 
+
     def __init__(self, args):
         self.args = args
 
-    raw_string = ''
-
     def get_kml(self, file_):
-        import urllib2
+        import urllib
         kml_url = 'http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/ActiveFirePerimeters.kml'
-        self.file = urllib2.urlopen(kml_url)
-        raw_string = str((self.file).read())
-        # Need to add the URLLIB stuff to get the KML file and return a string.
-        return self.raw_string
+        response = (urllib.urlparse(kml_url)).read()
+        return self.response
 
     def desc_regexr(self, string):
         import re
@@ -43,18 +40,19 @@ class ActiveFiresKML:
                     unique_id[0]:unique_id[1], "Link URL":link_url}
         return self.metadata
 
-    def parser(raw_string):
+    def parser(response):
         """
         Active fires KML parser
         Args: (as dict)
             source, source path of KML file
             output_file, emitter path
         """
+        print(response)
         import xmltodict
         # Initiate the parser's working vars
-        this = xmltodict.parse(raw_string)
+        this = xmltodict.parse(response, encoding='UTF-8')
         that = dict()
-        #this = xmltodict.parse(self.get_kml(self.args['source']))
+        # this = xmltodict.parse(self.get_kml(self.args['source']))
         that = dict()
         tmp = dict()
         first_pass = True

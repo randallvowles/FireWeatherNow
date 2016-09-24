@@ -5,9 +5,9 @@ def list_fires():
     """Main handler"""
 
     args = {
-        #"source": "..\static_data\ActiveFirePerimeters.kml",
-        #"output_file": "current.json",
-        #"output_dir": "..\output\\"
+    #     "source": "..\static_data\ActiveFirePerimeters.kml",
+    #     "output_file": "current.json",
+    #     "output_dir": "..\output\\"
     }
     AF = ActiveFiresKML.ActiveFiresKML(args)
 
