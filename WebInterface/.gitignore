@@ -1,9 +1,0 @@
-# The usual suspects
-.DS_Store
-Thumbs.db
-
-# Building files
-node_modules/
-out/*
-!out/.keep
-docs/html/
