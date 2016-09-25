@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Station Metadata</title>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="../dist/mesonet-0.5.1.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script>
+        var M = new mesonet(); // Outside so we can see it from the console
+
+        function main() {
+
+            // Set up mesonet interface
+            M.setApiToken("demotoken");
+            M.setService("Metadata");
+            if (M.windowArgs() === "undefined") {
+                M.fetch({
+                    state: "ut",
+                    complete: 1,
+                    sensorvars: 1
+                });
+            } else {
+                M.fetch(0);
+            }
+
+            var ready = M.async();
+            $.when(ready).done(function() {
+                M.showResponse();
+            });
+        }
+    </script>
+
+</head>
+
+<body onload="main();">
+    You can access the object from the console by <b>M</b>.
+</body>
+
+</html>

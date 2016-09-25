@@ -1,9 +1,11 @@
 # The usual suspects
 .DS_Store
 Thumbs.db
+.vscode
 
 # Python
 *.pyc
+__pycache__
 
 # Results
 *.json

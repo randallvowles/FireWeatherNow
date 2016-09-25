@@ -1,0 +1,327 @@
+<!-- saved from url=(0042)http://mashup.mesowest.net/map_stream.html -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+
+<body>
+    <div class="line-gutter-backdrop"></div>
+    <table>
+        <tbody>
+            <tr>
+                <td class="line-number" value="1"></td>
+                <td class="line-content"><span class="html-doctype">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="2"></td>
+                <td class="line-content"><span class="html-tag">&lt;html <span class="html-attribute-name">xmlns</span>="<span class="html-attribute-value">http://www.w3.org/1999/xhtml</span>"&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="3"></td>
+                <td class="line-content"> <span class="html-tag">&lt;head&gt;</span> </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="4"></td>
+                <td class="line-content"> <span class="html-tag">&lt;title&gt;</span>MesoWest Ingest Stream<span class="html-tag">&lt;/title&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="5"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="6"></td>
+                <td class="line-content"> <span class="html-tag">&lt;link <span class="html-attribute-name">rel</span>="<span class="html-attribute-value">stylesheet</span>" <span class="html-attribute-name">href</span>="<a class="html-attribute-value html-resource-link" target="_blank"
+                        href="http://mashup.mesowest.net/static/leaflet.css">./static/leaflet.css</a>"&gt;</span><span class="html-tag">&lt;/link&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="7"></td>
+                <td class="line-content"> <span class="html-tag">&lt;link <span class="html-attribute-name">rel</span>="<span class="html-attribute-value">stylesheet</span>" <span class="html-attribute-name">href</span>="<a class="html-attribute-value html-resource-link" target="_blank"
+                        href="http://mashup.mesowest.net/static/mwstream.css">./static/mwstream.css</a>"&gt;</span><span class="html-tag">&lt;/link&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="8"></td>
+                <td class="line-content"> <span class="html-tag">&lt;link <span class="html-attribute-name">rel</span>="<span class="html-attribute-value">stylesheet</span>" <span class="html-attribute-name">href</span>="<a class="html-attribute-value html-resource-link" target="_blank"
+                        href="http://mashup.mesowest.net/static/tipsy.css">./static/tipsy.css</a>"&gt;</span><span class="html-tag">&lt;/link&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="9"></td>
+                <td class="line-content"> <span class="html-tag">&lt;script <span class="html-attribute-name">src</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js</a>"&gt;</span>
+                    <span
+                        class="html-tag">&lt;/script&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="10"></td>
+                <td class="line-content"> <span class="html-tag">&lt;script <span class="html-attribute-name">src</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js">http://code.jquery.com/ui/1.10.3/jquery-ui.min.js</a>"&gt;</span>
+                    <span
+                        class="html-tag">&lt;/script&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="11"></td>
+                <td class="line-content"> <span class="html-tag">&lt;script <span class="html-attribute-name">src</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="http://mashup.mesowest.net/static/jquery.tipsy.js">./static/jquery.tipsy.js</a>"&gt;</span>
+                    <span
+                        class="html-tag">&lt;/script&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="12"></td>
+                <td class="line-content"> <span class="html-tag">&lt;script <span class="html-attribute-name">src</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="http://mashup.mesowest.net/static/sizzle.js">./static/sizzle.js</a>"&gt;</span>
+                    <span
+                        class="html-tag">&lt;/script&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="13"></td>
+                <td class="line-content"> <span class="html-tag">&lt;script <span class="html-attribute-name">src</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="http://mashup.mesowest.net/static/mwstream.js">./static/mwstream.js</a>"&gt;</span>
+                    <span
+                        class="html-tag">&lt;/script&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="14"></td>
+                <td class="line-content"> <span class="html-tag">&lt;script <span class="html-attribute-name">src</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="http://mashup.mesowest.net/static/leaflet.js">./static/leaflet.js</a>"&gt;</span>
+                    <span
+                        class="html-tag">&lt;/script&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="15"></td>
+                <td class="line-content"> <span class="html-tag">&lt;script <span class="html-attribute-name">src</span>="<a class="html-attribute-value html-resource-link" target="_blank" href="http://mashup.mesowest.net/static/d3.v3.min.js">./static/d3.v3.min.js</a>"&gt;</span>
+                    <span
+                        class="html-tag">&lt;/script&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="16"></td>
+                <td class="line-content">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="17"></td>
+                <td class="line-content"> <span class="html-tag">&lt;style <span class="html-attribute-name">type</span>="<span class="html-attribute-value">text/css</span>"&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="18"></td>
+                <td class="line-content"> svg , g</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="19"></td>
+                <td class="line-content"> {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="20"></td>
+                <td class="line-content"> border: solid 3px red;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="21"></td>
+                <td class="line-content"> stroke-width: 1.5px;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="22"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="23"></td>
+                <td class="line-content"> circle</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="24"></td>
+                <td class="line-content"> {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="25"></td>
+                <td class="line-content"> fill-opacity: 0.75;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="26"></td>
+                <td class="line-content"> stroke: #333;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="27"></td>
+                <td class="line-content"> stroke-width: 0.5px;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="28"></td>
+                <td class="line-content"> fill: red;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="29"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="30"></td>
+                <td class="line-content"> button </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="31"></td>
+                <td class="line-content"> {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="32"></td>
+                <td class="line-content"> border-radius: 3px;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="33"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="34"></td>
+                <td class="line-content"> .explain</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="35"></td>
+                <td class="line-content"> {</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="36"></td>
+                <td class="line-content"> width: 300px;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="37"></td>
+                <td class="line-content"> height: 300px;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="38"></td>
+                <td class="line-content"> z-index: 9999;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="39"></td>
+                <td class="line-content"> position: absolute;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="40"></td>
+                <td class="line-content"> left: -20px;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="41"></td>
+                <td class="line-content"> top: 42px;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="42"></td>
+                <td class="line-content"> opacity: 1.0;</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="43"></td>
+                <td class="line-content"> }</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="44"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/style&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="45"></td>
+                <td class="line-content"><span class="html-tag">&lt;/head&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="46"></td>
+                <td class="line-content"><span class="html-tag">&lt;body&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="47"></td>
+                <td class="line-content"> <span class="html-tag">&lt;h1&gt;</span>National Mesonet Data Stream<span class="html-tag">&lt;button <span class="html-attribute-name">id</span>="<span class="html-attribute-value">gbutton</span>" <span class="html-attribute-name">style</span>="
+                    <span
+                        class="html-attribute-value">float:right; font-size:24px;</span>"&gt;</span>What Am I Looking At?<span class="html-tag">&lt;/button&gt;</span><span class="html-tag">&lt;/h1&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="48"></td>
+                <td class="line-content"> <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">explain</span>"&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="49"></td>
+                <td class="line-content"> <span class="html-tag">&lt;button <span class="html-attribute-name">id</span>="<span class="html-attribute-value">close</span>"&gt;</span>X<span class="html-tag">&lt;/button&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="50"></td>
+                <td class="line-content"> <span class="html-tag">&lt;br /&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="51"></td>
+                <td class="line-content"> This application depicts the data flowing from all publicly available surface observation data sources, as aggregated by both MesoWest, University of Utah, and NOAA's MADIS system.</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="52"></td>
+                <td class="line-content"> Each point on the map represents a surface station observation becoming available for public use through MesoWest.</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="53"></td>
+                <td class="line-content"> The latency of each observation from the time it was observed to the availability time varies from network to network.</td>
+            </tr>
+            <tr>
+                <td class="line-number" value="54"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/div&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="55"></td>
+                <td class="line-content"> <span class="html-tag">&lt;div <span class="html-attribute-name">id</span>="<span class="html-attribute-value">counts</span>"&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="56"></td>
+                <td class="line-content"> <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">obTitle</span>"&gt;</span>Observations<span class="html-tag">&lt;/div&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="57"></td>
+                <td class="line-content"> <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">countTitle</span>"&gt;</span>Five Seconds<span class="html-tag">&lt;br&gt;</span>Accumulated: <span class="html-tag">&lt;span <span class="html-attribute-name">id</span>="
+                    <span
+                        class="html-attribute-value">last5Seconds</span>" <span class="html-attribute-name">class</span>="<span class="html-attribute-value">tally</span>"&gt;</span><span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="58"></td>
+                <td class="line-content"> <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">countTitle</span>"&gt;</span>One Minute<span class="html-tag">&lt;br&gt;</span>Accumulated: <span class="html-tag">&lt;span <span class="html-attribute-name">id</span>="
+                    <span
+                        class="html-attribute-value">lastMinute</span>" <span class="html-attribute-name">class</span>="<span class="html-attribute-value">tally</span>"&gt;</span><span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="59"></td>
+                <td class="line-content"> <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">countTitle</span>"&gt;</span>As of <span class="html-tag">&lt;span <span class="html-attribute-name">id</span>="<span class="html-attribute-value">myTime</span>"&gt;</span>
+                    <span
+                        class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;br&gt;</span>Accumulated:<span class="html-tag">&lt;span <span class="html-attribute-name">id</span>="<span class="html-attribute-value">totalObs</span>" <span class="html-attribute-name">class</span>="
+                        <span
+                            class="html-attribute-value">tally</span>"&gt;</span><span class="html-tag">&lt;/span&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="60"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/div&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="61"></td>
+                <td class="line-content"> <span class="html-tag">&lt;div <span class="html-attribute-name">id</span>="<span class="html-attribute-value">map</span>"&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="62"></td>
+                <td class="line-content"> <span class="html-tag">&lt;div <span class="html-attribute-name">class</span>="<span class="html-attribute-value">credit</span>"&gt;</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="line-number" value="63"></td>
+                <td class="line-content"> Created by Chris Galli, MesoWest, University of Utah. chris.galli@utah.edu<span class="html-tag">&lt;br/&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="64"></td>
+                <td class="line-content"> <span class="html-tag">&lt;/div&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="65"></td>
+                <td class="line-content"> <span class="html-tag">&lt;div <span class="html-attribute-name">id</span>="<span class="html-attribute-value">out</span>"&gt;</span><span class="html-tag">&lt;/div&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="66"></td>
+                <td class="line-content"><span class="html-tag">&lt;/body&gt;</span></td>
+            </tr>
+            <tr>
+                <td class="line-number" value="67"></td>
+                <td class="line-content"><span class="html-tag">&lt;/html&gt;</span><span class="html-end-of-file"></span></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
