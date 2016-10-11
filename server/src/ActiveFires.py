@@ -70,8 +70,7 @@ class ActiveFires:
                 first_pass = False
             else:
                 _coords = this['kml']['Document']['Placemark'][1]['Polygon'][
-                    'outerBoundaryIs']['LinearRing'][
-                    'coordinates'].split('\n')
+                    'outerBoundaryIs']['LinearRing']['coordinates'].split('\n')
                 npoly_els = len(_coords)
                 tmp['n_polygon_elements'] = npoly_els
                 tmp['polygon'] = []
@@ -87,17 +86,22 @@ class ActiveFires:
                 tmp = dict()
         return that
 
-    def emitter(self, dict_):
+    def emitter(self, dict_, filename, timestamp):
         """Emit the file"""
         import json
         import time
-
-        current_time = time.strftime('%Y%m%d%H%M', time.gmtime())
-
+        if timestamp is True:
+            timestamp = time.strftime('%Y%m%d%H%M', time.gmtime())
+        else:
+            timestamp = ''
         # !! This is where problems can occur.  This should be surfaced as an option.
-        output_file = current_time + '_active_fires' + '.json'
+        filename1 = str(timestamp) + str(filename) + '.json'
         output_dir = '../storage/fire_data/'
-        file_out = output_dir + output_file
-
+        file_out = output_dir +filename1
         with open(file_out, 'w') as file_out:
             json.dump(dict_, file_out, sort_keys=True, indent=4)
+
+
+
+
+

@@ -1,36 +1,26 @@
-#/usr/bin/python3
-from time import sleep
-import feedparser
-import requests
-import gmplot
+
+import urllib
+import json
+# import gmplot
 error_log = open('./fire_error_log.txt', 'a')
-baseURL = 'http://api.mesowest.net/v2/stations/'
-token = '&token=c5213a1102b8422c80378944e1246d10'
-parameters = '&qc=all&complete=1&network=1,2&status=active&recent=720'
-inciweb_url = 'http://inciweb.nwcg.gov/feeds/rss/incidents/'
-inciweb = feedparser.parse(inciweb_url)
+baseURL = 'http://api.mesowest.net/v2/stations/latest?'
+API_params = {'token': 'c5213a1102b8422c80378944e1246d10', 'qc': 'all',
+           'complete': '1', 'network': '1,2', 'status': 'active',
+           'recent': '360'}
+# inciweb_url = 'http://inciweb.nwcg.gov/feeds/rss/incidents/'
+# inciweb = feedparser.parse(inciweb_url)
 fire_lat = []
 fire_lon = []
-fire_title = []
-fire_dict = {}
-for j in range(len(inciweb['entries'])):
-    try:
-        fire_lat.append(float(inciweb['entries'][j]['geo_lat']))
-        fire_lon.append(float(inciweb['entries'][j]['geo_long']))
-        fire_title.append(inciweb['entries'][j]['title'])
-    except (ValueError):
-        error_log.write(str([j]) + ' Bad coordinates for ' +
-                        inciweb['entries'][j]['link']+'\n')
-for q in range(len(fire_title)):
-    fire_dict[q] = []
-    fire_dict[q].append(fire_title[q])
-    fire_dict[q].append(fire_lat[q])
-    fire_dict[q].append(fire_lon[q])
+file_in = 'C:\\FireWeatherNow\\storage\\fire_data\\active_fires.json'
+with open(file_in, 'r') as file1:
+    json.load(file1)
+print(file1)
+
+
 nearest_stids = []
-for k in range(len(fire_lat)):
-    r = requests.get(baseURL+'metadata?'+token+parameters +
-                     '&radius=' + str(fire_lat[k]) + ',' +
-                     str(fire_lon[k])+',50')
+for k in range(len(fire_lat)): #put polygon path here
+    r = urllib.get(baseURL+API_params + '&radius=' + str(fire_lat[k]) + ',' +
+                   str(fire_lon[k])+',50')
     nearest_stids.append(r.json())
 all_stations = []
 stid_dict = {}
@@ -39,17 +29,8 @@ for l in range(len(nearest_stids)):
     stid_dict[fire_title[l]] = []
     for m in range(len(all_stations)):
         stid_dict[fire_title[l]].append(all_stations[m]['STID'])
-        #stid_dict[fire_title[l](m)].append(all_stations[m]['LATITUDE'])
-        #stid_dict[fire_title[l](m)].append(all_stations[m]['LONGITUDE'])
-filename = 'stations_near_fires.txt'
-filename2 = 'fire_locations.txt'
-f = open(filename, 'w')
-f2 = open(filename2, 'w')
-f.write(str(stid_dict))
-f2.write(str(fire_dict))
-f.close
-f2.close
-print(stid_dict['Pioneer Fire (Wildfire)'])
+
+
 
 '''
 # API query gets latest 12 hours of data from RAWS and AWOS/ASOS/FAA stations
