@@ -34,17 +34,16 @@ def update_fires():
     args = {}
     AF = ActiveFires.ActiveFires(args)
 #    AF.emitter(AF.parser(AF.get_kml("")))
-    file1 = AF.emitter(AF.parser(AF.get_kml("")), '_ActiveFiresDict', True)
-#    print(file1)
-    return file1
+    AF.emitter(AF.parser(AF.get_kml("")), '_ActiveFiresDict', True)
+
 
 
 def stationquery(dict_):
     args = {}
     AF = ActiveFires.ActiveFires(args)
     firedict = AF.parser(AF.get_kml(""))
-#    for i in range(len(firedict)):
-    print(firedict)
+    for i in range(len(firedict)):
+        print(firedict[i]['Fire Name'])
 
 
 
@@ -60,8 +59,8 @@ if __name__ == '__main__':
 
 
 # Init.
-#update_fires()
-stationquery(update_fires())
+update_fires()
+#stationquery(update_fires())
 # put the code here to get the stations and serve the info back to the user.
 # look at `Tornado` to do this.  It's the defacto standard.
 
