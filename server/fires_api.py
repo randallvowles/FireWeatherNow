@@ -34,7 +34,7 @@ def update_fires():
     # }
     args = {}
     AF = ActiveFires.ActiveFires(args)
-    AF.emitter(AF.parser(AF.get_kml("")))
+    # AF.emitter(AF.parser(AF.get_kml("")))
     AF.emitter(AF.parser(AF.get_kml("")), '_ActiveFiresDict', True)
 
 
