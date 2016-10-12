@@ -62,27 +62,27 @@ class ActiveFires:
                 # print(that)
             elif this['kml']['Document']['Placemark'][x]['name'] in that :
                 if 'Polygon' in this['kml']['Document']['Placemark'][x] :
-                    n_polygons = len(this['kml']['Document']['Placemark'][x])
+                    n_polygon_elements = len(this['kml']['Document']['Placemark'][x]['Polygon'])
+                    _coords = [this['kml']['Document']['Placemark'][x][
+                                   'Polygon']['outerBoundaryIs']['LinearRing']['coordinates'].split('\n')]
+                    tmp['n_polygon_elements'] = n_polygon_elements
+                    for j in range(len(_coords)):
+                        n_total_poly_points = []
+                        n_total_poly_points.append(len(_coords[j]))
+                    tmp['polygon'] = []
+                    for y in range(n_polygon_elements):
+                        _junk = _coords[y].split(',')
+                        tmp['polygon'].append({"lon": float(_junk[0]), "lat": float(_junk[1])})
+                        # Append to big-o-array
+                    that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
+                elif 'Polygon' in this['kml']['Document']['Placemark'][x]['MultiGeometry'] :
+                    n_polygons = len(this['kml']['Document']['Placemark'][x]['MultiGeometry'])
                     for i in range(n_polygons):
                         _coords = []
                         _coords.append([this['kml']['Document']['Placemark'][x][
                                        'Polygon'][i]['outerBoundaryIs']['LinearRing']['coordinates'].split('\n')])
-                        tmp['n_polygon_elements'] = n_polygons_els
-                        for j in range(len(_coords)):
-                            n_total_poly_points = []
-                            n_total_poly_points.append(len(_coords[j]))
-                        tmp['polygon'] = []
-                        for y in range(n_polygons_els):
-                            _junk = _coords[y].split(',')
-                            tmp['polygon'].append({"lon": float(_junk[0]), "lat": float(_junk[1])})
-                            # Append to big-o-array
-                        that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
-                elif 'Polygon' in this['kml']['Document']['Placemark'][x]['MultiGeometry'] :
-                    _coords = []
-                    _coords.append(this['kml']['Document']['Placemark'][x]['MultiGeometry'][
-                                   'Polygon']['outerBoundaryIs']['LinearRing']['coordinates'].split('\n'))
-                    n_polygons = len(this['kml']['Document']['Placemark'][x]['MultiGeometry'])
-                    tmp['n_polygon_elements'] = n_polygons
+                        tmp['n_polygons'] = n_polygons
+                    tmp['n_polygons'] = n_polygons
                     for j in range(len(_coords)):
                         n_total_poly_points = []
                         n_total_poly_points.append(len(_coords[j]))
