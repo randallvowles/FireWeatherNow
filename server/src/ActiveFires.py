@@ -53,6 +53,7 @@ class ActiveFires:
         for x in range(nkeys):
             if this['kml']['Document']['Placemark'][x]['name'] not in that and \
                     'Point' in this['kml']['Document']['Placemark'][x]:
+            # if this['kml']['Document']['Placemark'][x]['name'] not in that :
                 tmp['name'] = this['kml']['Document']['Placemark'][x]['name']
                 tmp['lon'] = this['kml']['Document']['Placemark'][x]['LookAt']['longitude']
                 tmp['lat'] = this['kml']['Document']['Placemark'][x]['LookAt']['latitude']
@@ -60,7 +61,8 @@ class ActiveFires:
                 # Append to big-o-array
                 that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
                 # print(that)
-            elif this['kml']['Document']['Placemark'][x]['name'] in that :
+            else :
+            # elif this['kml']['Document']['Placemark'][x]['name'] in that :
                 if 'Polygon' in this['kml']['Document']['Placemark'][x] :
                     n_polygon_elements = len(this['kml']['Document']['Placemark'][x]['Polygon'])
                     _coords = [this['kml']['Document']['Placemark'][x][
@@ -79,23 +81,27 @@ class ActiveFires:
                     n_polygons = len(this['kml']['Document']['Placemark'][x]['MultiGeometry'])
                     for i in range(n_polygons):
                         _coords = []
-                        _coords.append([this['kml']['Document']['Placemark'][x][
-                                       'Polygon'][i]['outerBoundaryIs']['LinearRing']['coordinates'].split('\n')])
+                        _coords.append([this['kml']['Document']['Placemark'][x]['MultiGeometry']['Polygon'][i]['outerBoundaryIs']['LinearRing']['coordinates'].split('\n')])
                         tmp['n_polygons'] = n_polygons
                     tmp['n_polygons'] = n_polygons
                     for j in range(len(_coords)):
                         n_total_poly_points = []
                         n_total_poly_points.append(len(_coords[j]))
                     tmp['polygon'] = []
-                    for y in range(n_polygons):
-                        _junk = _coords[y].split(',')
-                        tmp['polygon'].append({"lon": float(_junk[0]), "lat": float(_junk[1])})
-                        # Append to big-o-array
+
+                    print(_coords)
+                    _junk = ()
+                    new_coords = (line.split(',') for line in _coords)
+                    newcoordsies = ((type[1], type[2]) for type in new_coords)
+                    for x, y in newcoordsies:
+                        _junk.append(x,y)
+                    tmp['polygon'].append({"lon": float(_junk[0]), "lat": float(_junk[1])})
+                    # Append to big-o-array
                     that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
-            else :
-                print('Error in '+str(x)+' key, '+ str(this['kml']['Document']['Placemark'][x]['name']))
-                print(" ")
-                print('Contents of key: '+str(this['kml']['Document']['Placemark'][x]))
+                else :
+                    print('Error in '+str(x)+' key, '+ str(this['kml']['Document']['Placemark'][x]['name']))
+                    # print(" ")
+                    # print('Contents of key: '+str(this['kml']['Document']['Placemark'][x]))
 
             # n_polygons = len(_coords)
             # tmp['n_polygon_elements'] = n_polygons
@@ -112,8 +118,9 @@ class ActiveFires:
             #     #     print('Danger! Danger! Something went wrong!')
             #     #     continue
             tmp = dict()
-        print(that)
+        # print(that)
         return that
+
     # def emitter(self, dict_):
     def emitter(self, dict_, filename, timestamp):
         """Emit the file"""
@@ -128,7 +135,7 @@ class ActiveFires:
             timestamp = ''
         # !! This is where problems can occur.  This should be surfaced as an option.
         filename1 = str(timestamp) + str(filename) + '.json'
-        output_dir = '..\\storage\\fire_data\\'
+        output_dir = 'C:\\FireWeatherNow\\storage\\fire_data\\'
         # output_dir = '../storage/fire_data/'
         file_out = output_dir + filename1
         with open(file_out, 'w') as file_out:
