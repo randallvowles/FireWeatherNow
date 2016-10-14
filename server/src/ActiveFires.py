@@ -61,33 +61,37 @@ class ActiveFires:
                 tmp['lon'] = this['kml']['Document']['Placemark'][x]['LookAt']['longitude']
                 tmp['lat'] = this['kml']['Document']['Placemark'][x]['LookAt']['latitude']
                 tmp['desc'] = self.desc_regexr(this['kml']['Document']['Placemark'][x]['description'])
-                # Append to big-o-array
-                # print(tmp)
                 # print(this['kml']['Document']['Placemark'][x]['name'])
                 # that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
                 # tmp = dict()
-                # print(that)
             else :
                 poly_array = []
             # elif this['kml']['Document']['Placemark'][x]['name'] in that :
                 if 'Polygon' in this['kml']['Document']['Placemark'][x] :
-                    # poly_array = []
                     _coords = [this['kml']['Document']['Placemark'][x]['Polygon']['outerBoundaryIs']['LinearRing']['coordinates'].split(',')]
                     n_polygon_elements = len(_coords)
                     tmp['n_polygon_elements'] = n_polygon_elements
                     tmp['polygon'] = []
                     for j in range(len(_coords)):
-                        # poly_array[j] = []
+                        # poly_array[j].append()
                         n_total_poly_points = []
                         n_total_poly_points.append(len(_coords[j]))
+                        print('Printing Coordinates:')
+                        print(_coords)
                         tmp['n_total_poly_points'] = n_total_poly_points
                         _junk = _coords[j]
+                        print('Printing junk:')
+                        print(_junk)
                         poly_array = ({'lat': float(_junk[1]), 'lon': float(_junk[0])})
+                        print('Printing poly array:')
+                        print(poly_array)
                         # poly_array.insert(j, {'lat': float(_junk[1]), 'lon': float(_junk[0])})
-                        # print(poly_array)
-                    tmp['polygon'] = (poly_array)
+                    # tmp['polygon'] = (poly_array)
+                        tmp['polygon'].append(poly_array)
                         # Append to big-o-array
                     that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
+                    print('Printing output:')
+                    print(that)
                     # tmp = dict()
                 elif 'Polygon' in this['kml']['Document']['Placemark'][x]['MultiGeometry'] :
                     n_polygons = len(this['kml']['Document']['Placemark'][x]['MultiGeometry'])
@@ -100,29 +104,13 @@ class ActiveFires:
                         tmp['n_total_poly_points'] = n_total_poly_points
                         tmp['polygon'] = []
                         for j in range(len(_coords)):
-                            # poly_array[j] = []
-                            # print(_coords[i])
+                            # poly_array[j].append()
                             _junk = _coords[j]
                             poly_array = ({'lat': float(_junk[1]), 'lon': float(_junk[0])})
                             # poly_array.insert(j, {'lat': float(_junk[1]), 'lon': float(_junk[0])})
-                            # print(poly_array)
-                    tmp['polygon'] = (poly_array)
+                    # tmp['polygon'] = (poly_array)
+                        tmp['polygon'].append(poly_array)
                     that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
-                # tmp = dict()
-                    # tmp['n_polygons'] = n_polygons
-                    # for j in range(len(_coords)):
-                    #     n_total_poly_points = []
-                    #     n_total_poly_points.append(len(_coords[j]))
-                    # tmp['polygon'] = []
-                    # print(_coords)
-                    # _junk = ()
-                    # new_coords = (line.split(',') for line in _coords)
-                    # newcoordsies = ((type[1], type[2]) for type in new_coords)
-                    # for x, y in newcoordsies:
-                    #     _junk.append(x,y)
-                    # tmp['polygon'].append({"lon": float(_junk[0]), "lat": float(_junk[1])})
-                    # # Append to big-o-array
-                    # that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
                 else :
                     print('Error in '+str(x)+' key, '+ str(this['kml']['Document']['Placemark'][x]['name']))
                     # print(" ")
@@ -130,24 +118,6 @@ class ActiveFires:
                 # tmp['polygon'] = poly_array
                 # that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
                 tmp = dict()
-                # tmp['polygon'] = poly_array
-            # n_polygons = len(_coords)
-            # tmp['n_polygon_elements'] = n_polygons
-            # for j in range(len(_coords)):
-            #     n_total_poly_points = []
-            #     n_total_poly_points.append(len(_coords[j]))
-            # tmp['polygon'] = []
-            # for y in range(n_polygons):
-            #     _junk = _coords[y].split(',')
-            #     tmp['polygon'].append({"lon": float(_junk[0]), "lat": float(_junk[1])})
-            #     # Append to big-o-array
-            #     that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
-            #     # else:
-            #     #     print('Danger! Danger! Something went wrong!')
-            #     #     continue
-        # that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
-        # tmp = dict()
-        # print(that)
         return that
 
     # def emitter(self, dict_):
