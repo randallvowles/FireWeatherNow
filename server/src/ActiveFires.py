@@ -76,22 +76,22 @@ class ActiveFires:
                         # poly_array[j].append()
                         n_total_poly_points = []
                         n_total_poly_points.append(len(_coords[j]))
-                        print('Printing Coordinates:')
-                        print(_coords)
+                        # print('Printing Coordinates:')
+                        # print(_coords)
                         tmp['n_total_poly_points'] = n_total_poly_points
                         _junk = _coords[j]
-                        print('Printing junk:')
-                        print(_junk)
+                        # print('Printing junk:')
+                        # print(_junk)
                         poly_array = ({'lat': float(_junk[1]), 'lon': float(_junk[0])})
-                        print('Printing poly array:')
-                        print(poly_array)
+                        # print('Printing poly array:')
+                        # print(poly_array)
                         # poly_array.insert(j, {'lat': float(_junk[1]), 'lon': float(_junk[0])})
                     # tmp['polygon'] = (poly_array)
                         tmp['polygon'].append(poly_array)
                         # Append to big-o-array
                     that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
-                    print('Printing output:')
-                    print(that)
+                    # print('Printing output:')
+                    # print(that)
                     # tmp = dict()
                 elif 'Polygon' in this['kml']['Document']['Placemark'][x]['MultiGeometry'] :
                     n_polygons = len(this['kml']['Document']['Placemark'][x]['MultiGeometry'])
