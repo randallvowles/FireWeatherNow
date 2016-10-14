@@ -52,7 +52,7 @@ class ActiveFires:
         that = {}
         tmp = dict()
         nkeys = len(this['kml']['Document']['Placemark'])
-        for x in range(nkeys):
+        for x in xrange(nkeys):
             if this['kml']['Document']['Placemark'][x]['name'] not in that and \
                     'Point' in this['kml']['Document']['Placemark'][x]:
             # if this['kml']['Document']['Placemark'][x]['name'] not in that :
@@ -65,52 +65,54 @@ class ActiveFires:
                 # that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
                 # tmp = dict()
             else :
-                poly_array = []
+                poly_keys = []
             # elif this['kml']['Document']['Placemark'][x]['name'] in that :
                 if 'Polygon' in this['kml']['Document']['Placemark'][x] :
-                    _coords = [this['kml']['Document']['Placemark'][x]['Polygon']['outerBoundaryIs']['LinearRing']['coordinates'].split(',')]
-                    n_polygon_elements = len(_coords)
-                    tmp['n_polygon_elements'] = n_polygon_elements
+                    # _coord = ()
+                    # _coords = [this['kml']['Document']['Placemark'][x]['Polygon']['outerBoundaryIs']['LinearRing']['coordinates'].split(',')]
+                    _coord = ((this['kml']['Document']['Placemark'][x]['Polygon']['outerBoundaryIs']['LinearRing']['coordinates']).split('\n'))
+                    _coords = [i.split(',') for i in _coord]
+                    # print(_coords)
+                    # _coords = ((_coord).split('\n'))
+                    # n_polygon_elements = len(_coords)
+                    # tmp['n_polygon_elements'] = n_polygon_elements
                     tmp['polygon'] = []
-                    for j in range(len(_coords)):
+                    for j in xrange(len(_coords)):
+                        # print(len(_coords))
                         # poly_array[j].append()
                         n_total_poly_points = []
-                        n_total_poly_points.append(len(_coords[j]))
-                        # print('Printing Coordinates:')
-                        # print(_coords)
-                        tmp['n_total_poly_points'] = n_total_poly_points
-                        _junk = _coords[j]
-                        # print('Printing junk:')
-                        # print(_junk)
-                        poly_array = ({'lat': float(_junk[1]), 'lon': float(_junk[0])})
-                        # print('Printing poly array:')
-                        # print(poly_array)
-                        # poly_array.insert(j, {'lat': float(_junk[1]), 'lon': float(_junk[0])})
-                    # tmp['polygon'] = (poly_array)
-                        tmp['polygon'].append(poly_array)
+                        # n_total_poly_points.append(len(_coords[j]))
+                        # tmp['n_total_poly_points'] = n_total_poly_points
+                        _junk = (_coords[j])
+                        poly_keys = ({'lat': (str(_junk[1])).strip(), 'lon': (str(_junk[0])).strip()})
+                        # poly_keys.append({'lat': float(_junk[1]), 'lon': float(_junk[0])})
+                        # tmp['polygon'] = (poly_array)
+                        tmp['polygon'].append(poly_keys)
                         # Append to big-o-array
                     that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
-                    # print('Printing output:')
-                    # print(that)
-                    # tmp = dict()
+                    tmp = dict()
                 elif 'Polygon' in this['kml']['Document']['Placemark'][x]['MultiGeometry'] :
-                    n_polygons = len(this['kml']['Document']['Placemark'][x]['MultiGeometry'])
+                    n_polygons = len(this['kml']['Document']['Placemark'][x]['MultiGeometry']['Polygon'])
                     tmp['n_polygons'] = n_polygons
-                    for i in range(n_polygons):
-                        _coords = []
-                        _coords.append((this['kml']['Document']['Placemark'][x]['MultiGeometry']['Polygon'][i]['outerBoundaryIs']['LinearRing']['coordinates'].split(',')))
-                        n_total_poly_points = []
-                        n_total_poly_points.append(len(_coords[i]))
-                        tmp['n_total_poly_points'] = n_total_poly_points
+                    for i in xrange(n_polygons):
+                        # _coord = ()
+                        _coord = ((this['kml']['Document']['Placemark'][x]['MultiGeometry']['Polygon'][i]['outerBoundaryIs']['LinearRing']['coordinates']).split('\n'))
+                        _coords = [k.split(',') for k in _coord]
+                        # print(len(_coords))
+                        # _coords = (str(_coord).split('\n'))
+                        # n_total_poly_points = []
+                        # n_total_poly_points.append(len(_coords[i]))
+                        # tmp['n_total_poly_points'] = n_total_poly_points
                         tmp['polygon'] = []
-                        for j in range(len(_coords)):
-                            # poly_array[j].append()
-                            _junk = _coords[j]
-                            poly_array = ({'lat': float(_junk[1]), 'lon': float(_junk[0])})
-                            # poly_array.insert(j, {'lat': float(_junk[1]), 'lon': float(_junk[0])})
-                    # tmp['polygon'] = (poly_array)
-                        tmp['polygon'].append(poly_array)
+                        for j in xrange(len(_coords)):
+                            # print(len(_coords))
+                            _junk = (_coords[j])
+                            # poly_keys = ({'lat': (str(_junk[1])).strip(), 'lon': (str(_junk[0])).strip()})
+                            poly_keys.append({'lat': float(_junk[1]), 'lon': float(_junk[0])})
+                        # tmp['polygon'] = (poly_array)
+                            tmp['polygon'].append(poly_keys)
                     that[this['kml']['Document']['Placemark'][x]['name'].split(" ")[0]] = tmp
+                    tmp = dict()
                 else :
                     print('Error in '+str(x)+' key, '+ str(this['kml']['Document']['Placemark'][x]['name']))
                     # print(" ")
