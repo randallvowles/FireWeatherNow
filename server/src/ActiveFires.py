@@ -71,7 +71,7 @@ class ActiveFires:
                             'LinearRing']['coordinates']).split('\n'))
                     _coords = [i.split(',') for i in _coord]
                     n_polygon_elements = len(_coords)
-                    tmp['n_polygon_elements'] = n_polygon_elements
+                    tmp['n_polygon_elements'] = str(n_polygon_elements)
                     tmp['polygon'] = []
                     for j in xrange(len(_coords)):
                         _junk = (_coords[j])
@@ -94,8 +94,8 @@ class ActiveFires:
                         tmp['polygon'] = []
                         for j in xrange(len(_coords)):
                             _junk = (_coords[j])
-                            poly_keys.append({'lat': float(_junk[1]),
-                                              'lon': float(_junk[0])})
+                            poly_keys.append({'lat': (str(_junk[1])).strip(),
+                                              'lon': (str(_junk[0])).strip()})
                             tmp['polygon'].append(poly_keys)
                     that[this['kml']['Document']['Placemark'][x][
                         'name'].split(" ")[0]] = tmp
