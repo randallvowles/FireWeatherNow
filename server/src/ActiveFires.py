@@ -62,6 +62,7 @@ class ActiveFires:
                     'LookAt']['latitude']
                 tmp['desc'] = self.desc_regexr(this['kml']['Document'][
                     'Placemark'][x]['description'])
+                tmp['n_nearest_stations'] = []
             else:
                 poly_keys = []
                 if 'Polygon' in this['kml']['Document']['Placemark'][x]:
@@ -120,5 +121,6 @@ class ActiveFires:
         # output_dir = '../storage/fire_data/'
         file_out = output_dir + filename1
         with open(file_out, 'w') as file_out:
-            json.dump(dict_, file_out, sort_keys=True, separators=(',', ':'),
-                      encoding="utf-8")
+            # json.dump(dict_, file_out, sort_keys=True, separators=(',', ':'),
+            #           encoding="utf-8")
+            json.dump(dict_, file_out, sort_keys=True, indent=4)
