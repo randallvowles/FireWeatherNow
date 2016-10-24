@@ -121,6 +121,6 @@ class ActiveFires:
         # output_dir = '../storage/fire_data/'
         file_out = output_dir + filename1
         with open(file_out, 'w') as file_out:
-            # json.dump(dict_, file_out, sort_keys=True, separators=(',', ':'),
-            #           encoding="utf-8")
-            json.dump(dict_, file_out, sort_keys=True, indent=4)
+            json.dump(dict_, file_out, sort_keys=True, separators=(',', ':'),
+                      encoding="utf-8")
+            # json.dump(dict_, file_out, sort_keys=True, indent=4)

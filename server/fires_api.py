@@ -15,10 +15,6 @@ def haversine(lon1, lat1, lon2, lat2):
     http://stackoverflow.com/questions/4913349/haversine-formula-in-python-bearing-and-distance-between-two-gps-points
     """
     # convert decimal degrees to radians
-    lon1 = float(lon1)
-    lat1 = float(lat1)
-    lon2 = float(lon2)
-    lat2 = float(lat2)
     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
     # haversine formula
     dlon = lon2 - lon1
@@ -55,63 +51,47 @@ def haversine(lon1, lat1, lon2, lat2):
 #         print firedict[i]['polygon']['polygon_area']
 
 
-def update_fires():
-    """Grabs and parses the latest KML file, emits a json dict"""
-    # args = {
-    #     "source": "..\static_data\ActiveFirePerimeters.kml",
-    #     "output_file": "current.json",
-    #     "output_dir": "..\output\\"
-    # }
-    args = {}
-    AF = ActiveFires.ActiveFires(args)
-    # AF.emitter(AF.parser(AF.get_kml("")))
-    AF.emitter(AF.parser(AF.get_kml("")), '_ActiveFiresDict', True)
+# def update_fires():
+#     """Grabs and parses the latest KML file, emits a json dict"""
+#     # args = {
+#     #     "source": "..\static_data\ActiveFirePerimeters.kml",
+#     #     "output_file": "current.json",
+#     #     "output_dir": "..\output\\"
+#     # }
+#     args = {}
+#     AF = ActiveFires.ActiveFires(args)
+#     # AF.emitter(AF.parser(AF.get_kml("")))
+#     AF.emitter(AF.parser(AF.get_kml("")), '_ActiveFiresDict', True)
 
 
 def nearest_peri_point (dict_, lat, lon):
     """Calculates shortest distance from station to perimeter"""
     import sys
     poly_dict = dict_
-    # print poly_dict
     st_lat = float(lat)
     st_lon = float(lon)
-    # DFPa = []
-    DFP_dist = []
-    DFP_bear = []
+    DFPa = []
     for i in range(len(poly_dict)):
-        # print poly_dict[i]
         try:
             plat = float(poly_dict[i]['lat'])
             plon = float(poly_dict[i]['lon'])
             DFP = haversine(st_lon, st_lat, plon, plat)
-            DFP_dist.append(DFP[0])
-            DFP_bear.append(DFP[1])
+            if i == 0:
+                DFPa = DFP
+            else:
+                if DFP[0] < DFPa[0]:
+                    DFPa = DFP
         except(TypeError):
             for j in range(len(poly_dict[i])):
                 plat = float(poly_dict[i][j]['lat'])
                 plon = float(poly_dict[i][j]['lon'])
                 DFP = haversine(st_lon, st_lat, plon, plat)
-                DFP_dist.append(DFP[0])
-                DFP_bear.append(DFP[1])
-        # if i == 0:
-        #     DFPa = DFP
-        # else:
-        #     if DFP[0] < DFPa[0]:
-        #         DFPa = DFP
-        # DFP_dist.append(DFP[0])
-        # DFP_bear.append(DFP[1])
-        try:
-            DFP_min = min(DFP_dist)
-            DFP_ind = (DFP_dist).index(DFP_min)
-            DFP_minb = DFP_bear[DFP_ind]
-            DFP_final = (DFP_min, DFP_minb)
-        except(ValueError):
-            print('Error calculating distance from lat/lon '+str(st_lat)+','+str(st_lon)+','+str(plat)+','+str(plat))
-            sys.exit
-    return DFP_final
-    # return DFPa
-
-    # return
+                if i == 0:
+                    DFPa = DFP
+                else:
+                    if DFP[0] < DFPa[0]:
+                        DFPa = DFP
+    return DFPa
 
 
 def stationquery():
@@ -130,18 +110,17 @@ def stationquery():
         response = json.loads(query)
         for j in range(len(response["STATION"])):
             stid = response["STATION"][j]["STID"]
-            # print stid
             slat = response["STATION"][j]["LATITUDE"]
             slon = response["STATION"][j]["LONGITUDE"]
             distance = str(response["STATION"][j]["DISTANCE"])
             name = response["STATION"][j]["NAME"]
             DFP = nearest_peri_point(firedict[i]['polygon'], slat, slon)
-            # print DFP
             nearest_stations = {'STID': stid, 'LAT': slat, 'LON': slon,
                                 'DFO': distance, 'NAME': name, 'DFP': DFP}
             firedict[i]['nearest_stations'].append(nearest_stations)
         firedict[i]['n_nearest_stations'].append(str(len(response["STATION"])))
-    AF.emitter(firedict, 'AF_NS_test', False)
+    AF.emitter(firedict, 'AF_NS_current', False)
+    AF.emitter(firedict, 'AF_NS', True)
     return firedict
 
 

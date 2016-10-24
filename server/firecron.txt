@@ -1,0 +1,4 @@
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=randomweathernow@gmail.com
+0 */12 * * * /uufs/chpc.utah.edu/common/home/u0540701/public_html/fireserver/fires_api.py > /uufs/chpc.utah.edu/common/home/u0540701/public_html/fireserver/fires_error_log.txt
