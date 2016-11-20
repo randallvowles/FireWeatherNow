@@ -124,3 +124,4 @@ class ActiveFires:
             json.dump(dict_, file_out, sort_keys=True, separators=(',', ':'),
                       encoding="utf-8")
             # json.dump(dict_, file_out, sort_keys=True, indent=4)
+# /uufs/chpc.utah.edu/common/home/u0540701/public_html/fireserver

@@ -1,3 +1,4 @@
+#!/uufs/chpc.utah.edu/common/home/u0540701/MyVenv/bin/python
 # encoding: utf-8
 """Provides the `Active Fires` API"""
 
@@ -130,9 +131,9 @@ if __name__ == '__main__':
         import sys
         from os import path
         sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-        from server.src import ActiveFires as ActiveFires
+        from src import ActiveFires as ActiveFires
     else:
-        from server.src import ActiveFires as ActiveFires
+        from src import ActiveFires as ActiveFires
 
 
 # Init.

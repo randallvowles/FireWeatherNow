@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<html>
+  <head>
+    <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+    <script src="http://dev2.mesowest.net/qc/assets/js/core/mesonet-current.min.js"></script>
+    <script src='http://dev2.mesowest.net/qc/assets/js/core/baseplate.js'></script>
+    <style>
+        td, th {
+            padding: 1px 4px;
+        }
+    </style>
+  </head>
+  <body>
+    <script>
+        var M = new Mesonet({token: "demotoken", service: "TimeSeries"})
+        var apiArgs = M.windowArgs();
+        apiArgs.vars = "air_temp,wind_speed,wind_direction,relative_humidity";
+        apiArgs.units = "english";
+        apiArgs.stid = "wbb";
+        apiArgs.start = "201611010000";
+        apiArgs.end = "201611020000";
+        apiArgs.timeformat = "%s";
+        M.fetch({ api_args: apiArgs });
+        M.printResponse();
+        $.when(M.async()).done(function () {
+            var _r = M.response;
+            var _s = _r.station[0];
+            var dataset = {"Date Time":_s.OBSERVATIONS.date_time,
+                            "Temperature":_s.OBSERVATIONS.air_temp_set_1,
+                            "Relative Humidity":_s.OBSERVATIONS.relative_humidity_set_1,
+                            "Wind Speed":_s.OBSERVATIONS.wind_speed_set_1,
+                            "Wind Direction":_s.OBSERVATIONS.wind_direction_set_1,
+                            }
+            // var headers =
+            d3.json(dataset, function (error,data) {
+                function tabulate(data, columns) {
+                    var table = d3.select('body').append('table')
+                    var thead = table.append('thead')
+                    var tbody = table.append('tbody');
+                    // append the header row
+                    thead.append('tr')
+                        .selectAll('th')
+                        .data(columns).enter()
+                        .append('th')
+                        .text(function (column) { return column; });
+                    // create a row for each object in the data
+                    var rows = tbody.selectAll('tr')
+                        .data(data)
+                        .enter()
+                        .append('tr');
+                    // create a cell in each row for each column
+                    var cells = rows.selectAll('td')
+                        .data(function (row) {
+                            return columns.map(function (column) {
+                                return {column: column, value: row[column]};
+                            });
+                        })
+                        .enter()
+                        .append('td')
+                        .text(function (d) { return d.value; });
+                    return table;
+                }
+                // render the table(s)
+                tabulate(dataset, ['date', 'close']); // 2 column table
+            });
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="SynopticLabs/MesoWest">
+    <meta name="author" content="SynopticLabs/MesoWest">
+    <title>SynopticLabs - MesoWest/SynopticLabs</title>
+    <link href='http://dev2.mesowest.net/tomato//assets/css/main.css' rel="stylesheet">
+    <link href='http://dev2.mesowest.net/tomato//assets/css/ie10-viewport-bug-workaround.css' rel="stylesheet">
+    <!--<link href='http://dev2.mesowest.net/tomato//assets/fonts/font-awesome/css/font-awesome.min.css' rel="stylesheet">-->
+    <script src='http://dev2.mesowest.net/tomato//assets/js/core/baseplate.js'></script>
+    <link rel="canonical" href="http://dev2.mesowest.nethttp://dev2.mesowest.net/tomato//tabtable">
+    <style>
+        .bang {
+            background: rgba(189, 33, 33, 0.3);
+            color: black;
+            border: 1px solid black;
+        }
+
+        .hide {
+            display: none;
+        }
+        /* These are make the sticky header */
+        /*
+		.tabtable table.scrollable-table {
+			width: 700px;
+		}
+		*/
+        /*
+		.tabtable {
+			border-collapse: collapse;
+			table-layout: initial;
+		}
+        */
+        /*
+		.tabtable thead th, .tabtable thead td,
+		.tabtable tbody td {
+			padding: 2px 2px 2px 2px;
+			border: 1px solid black;
+			overflow: hidden;
+			/* min-width: 110px; */
+        /* overflow: hidden; */
+        /*
+        }
+        */
+
+        .tabtable thead.fixed-header {
+            display: block;
+        }
+
+        .tabtable th:first-child,
+        .tabtable td:first-child {
+            min-width: 121px;
+            white-space: nowrap;
+        }
+
+        .tabtable tbody.scrollable {
+            display: block;
+            height: 500px;
+            overflow: auto;
+        }
+
+        #toggle-timezone {
+            white-space: nowrap;
+        }
+
+        .tabtable {
+            text-align: right;
+        }
+
+        .qc-inspector-table th,
+        .qc-inspector-table th:first-child,
+        .qc-inspector-table td,
+        .qc-inspector-table td:first-child {
+            white-space: nowrap;
+            text-align: left;
+            font-weight: normal;
+            font-size: 1em;
+        }
+        /* for the SVG plot */
+
+        .axis text {
+            font-family: Arial;
+            font-size: 13px;
+            color: #333333;
+            text-anchor: end;
+        }
+
+        path {
+            stroke: steelblue;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .data-line {
+            stroke: red;
+        }
+
+        .center-line {
+            stroke: #e5e5e5;
+            stroke-width: 1;
+            stroke-dasharray: 5, 5;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: grey;
+            stroke-width: 1;
+            shape-rendering: crispEdges;
+        }
+
+        .textlabel {
+            font-family: Arial;
+            font-size: 13px;
+            color: #333333;
+            text-anchor: middle;
+        }
+
+        .strike {
+            color: red;
+            font-weight: bold;
+        }
+
+        .qc-tooltip {
+            position: absolute;
+            z-index: 100;
+            visibility: hidden;
+            background: #000;
+            color: #fff;
+            padding: 1.1em;
+            border-radius: 2.5px;
+        }
+
+        .qc-tooltip ul {
+            padding: 0;
+        }
+
+        .qc-tooltip li {
+            list-style-type: none;
+            margin: 0;
+        }
+
+        .unit-table td,
+        .unit-table th {
+            text-align: left !important;
+        }
+
+        label.sensor-selector {
+            padding-left: 1em;
+        }
+
+        .fixed-panel-500 {
+            min-height: 100px;
+            max-height: 250px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed navbar-left" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+                <a class="navbar-brand" href="http://dev2.mesowest.net/tomato//"><img class="navbar-brand" src="https://scs.synopticlabs.net/images/mw-sl-logo.png" /></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-flag" aria-hidden="true"></i>&nbsp;Quality Control <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="station.html">View by Station</a></li>
+                <li><a href="network.html">View by Network</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+              </ul>
+            </li>
+            <li class="active"><a href="tabular.html">
+              <i class="fa fa-table" aria-hidden="true"></i>&nbsp;Tabular Observations</a>
+            </li>
+            -->
+                </ul>
+                <!--<ul class="nav navbar-nav navbar-right">
+            <li><a href="#" data-toggle="modal" data-target="#sitemap-modal"><i class="fa fa-map-signs" aria-hidden="true"></i></a></li>
+          </ul>-->
+            </div>
+        </div>
+    </nav>
+    <div class="container-narrow">
+        <div class="page-header">
+            <h1 id="page-title">Loading...</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span>Choose a fire from the dropdown menu</span>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Active Fires
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <!--<li><a href="#">HTML</a></li>
+                            <li><a href="#">CSS</a></li>
+                            <li><a href="#">JavaScript</a></li>-->
+                        </ul>
+                    </div>
+                    <!--<div class="panel-body">
+                        <!--<h4>General</h4>-->
+                    <!--<p>Usage: Requires valid API query string, except for the API token.</p>-->
+                    <!--<p>Common Examples:</p>-->
+                    <!--<ul>
+                        <li><a href="tabtable.html?stid=sbe&start=201610241200&end=201610241445"><code>?stid=sbe&amp;start=201610241200&amp;end=201610241445</code></a></li>
+                        <li><a href="tabtable.html?stid=naa&recent=300"><code>?stid=naa&amp;recent=300</code></a></li>
+                        <li><a href="tabtable.html?stid=DPG06&start=201610270000&end=201610271700"><code>?stid=DPG06&amp;start=201610270000&amp;end=201610271700</code></a></li>
+                    </ul>-->
+                    <hr/>
+                    <!--<h4><a href="changelog.txt" target="_new">View changelog</a></h4>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span id="tabtable-station-name">Tabular Table</span>
+                </div>
+                <div class="panel-body">
+                    <button id="show-preferences" class="btn btn-default"><i class="fa fa-sliders" aria-hidden="true"></i></button>
+                    <button id="show-sensor-menu" class="btn btn-default"><i class="fa fa-thermometer-three-quarters" aria-hidden="true"></i>&nbsp;Available Sensors</button>
+                    <hr/>
+                    <p id="tabtable-message"></p>
+                    <div id="tabtable-progress" class="progress">
+                        <!--<div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="80" aria-valuemin="0"
+                                aria-valuemax="100" style="width: 80%">
+                                <span class="sr-only">80% Complete (danger)</span>
+                            </div>-->
+                    </div>
+                    <div id="tabtable-container" class="table table-responsive"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- QC Inspector modal -->
+    <div class="modal fade" id="qc-inspector" tabindex="-1" role="dialog" aria-labelledby="qc-director">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <p>QC Segment Inspection of
+                        <b><span id="qc-inspector-title">Loading...</span></b>
+                    </p>
+                </div>
+                <div class="modal-body">
+                    <!--<h3 class="modal-title" id="qc-inspector-title">Loading...</h3>-->
+                    <!--<div class="vspace-1"></div>-->
+                    <div id="qc-inspector-progress" class="progress">
+                        <div class="progress-bar progress-bar-striped active progress-bar-info" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+                            aria-valuemax="100" style="width: 100%">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <div id="qc-inspector-table-container"></div>
+                    <div class="vspace-1"></div>
+                    <hr/>
+                    <div id="qc-inspector-plot-container" class="text-center"></div>
+                    <!--<div class="jumbotron">
+                            <h3 class="text-center">Plot goes here</h3>
+                        </div>-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Preferences modal -->
+    <div class="modal fade" id="settings-editor" tabindex="-1" role="dialog" aria-labelledby="settings-editor">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <p>Preferences </p>
+                </div>
+                <div class="modal-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#prefs-general" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;General Settings</a></li>
+                        <li role="presentation"><a href="#prefs-units" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-glass" aria-hidden="true"></i>&nbsp;Units</a></li>
+                        <li role="presentation"><a href="#prefs-sensors" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-thermometer-three-quarters" aria-hidden="true"></i>&nbsp;Sensors</a></li>
+                        <li role="presentation"><a href="#prefs-other" aria-controls="profile" role="tab" data-toggle="tab">Other</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <!-- General settings -->
+                        <div role="tabpanel" class="tab-pane active" id="prefs-general">
+                            <div class="vspace-1"></div>
+                            <p class="lead">General Settings</p>
+                        </div>
+                        <!-- Unit settings -->
+                        <div role="tabpanel" class="tab-pane" id="prefs-units">
+                            <div class="vspace-1"></div>
+                            <p class="lead ">Display Units</p>
+                            <hr/>
+                            <div class="container">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Unit convention</label>
+                                    <div class="col-sm-9">
+                                        <button id="toggle-units" class="btn btn-default units-conv"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="container">
+                                <!-- Table version -->
+                                <table class="table table-condensed unit-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Sensor Type</th>
+                                            <th colspan="4"><span class="center">Available Units</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Altimeter</td>
+                                            <td><input class="units-selector" type="radio" name="units-alti" id="units-alti-pa"
+                                                    value="pa">&nbsp;pa</td>
+                                            <td><input class="units-selector" type="radio" name="units-alti" id="units-alti-inhg"
+                                                    value="inhg">&nbsp;inHg</td>
+                                            <td colspan="2">
+                                        </tr>
+                                        <tr>
+                                            <td>Height</td>
+                                            <td><input class="units-selector" type="radio" name="units-height" id="units-height-m"
+                                                    value="m">&nbsp;m</td>
+                                            <td><input class="units-selector" type="radio" name="units-height" id="units-height-ft"
+                                                    value="ft">&nbsp;ft</td>
+                                            <td colspan="2"></td>
+                                            <tr>
+                                                <td>Precipitation</td>
+                                                <td><input class="units-selector" type="radio" name="units-precip" id="units-precip-mm"
+                                                        value="mm">&nbsp;mm</td>
+                                                <td><input class="units-selector" type="radio" name="units-precip" id="units-precip-cm"
+                                                        value="cm">&nbsp;cm</td>
+                                                <td><input class="units-selector" type="radio" name="units-precip" id="units-precip-in"
+                                                        value="in">&nbsp;in</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pressure</td>
+                                                <td><input class="units-selector" type="radio" name="units-pres" id="units-pres-pa"
+                                                        value="pa">&nbsp;Pa</td>
+                                                <td><input class="units-selector" type="radio" name="units-pres" id="units-pres-mb"
+                                                        value="inhg">&nbsp;mb</td>
+                                                <td colspan="2">
+                                                    <tr>
+                                                        <td>Speed</td>
+                                                        <td><input class="units-selector" type="radio" name="units-speed" id="units-speed-mps"
+                                                                value="mps">&nbsp;mp/s</td>
+                                                        <td><input class="units-selector" type="radio" name="units-speed" id="units-speed-mph"
+                                                                value="mph">&nbsp;mp/h</td>
+                                                        <td><input class="units-selector" type="radio" name="units-speed" id="units-speed-kph"
+                                                                value="kph">&nbsp;kp/h</td>
+                                                        <td><input class="units-selector" type="radio" name="units-speed" id="units-speed-kts"
+                                                                value="kts">&nbsp;kt/s</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Temperature</td>
+                                                        <td><input class="units-selector" type="radio" name="units-temp" id="units-temp-c"
+                                                                value="C">&nbsp;C</td>
+                                                        <td><input class="units-selector" type="radio" name="units-temp" id="units-temp-f"
+                                                                value="F">&nbsp;&deg;F</td>
+                                                        <td><input class="units-selector" type="radio" name="units-temp" id="units-temp-k"
+                                                                value="K">&nbsp;K</td>
+                                                        <td></td>
+                                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Available Sensors -->
+                        <div role="tabpanel" class="tab-pane" id="prefs-sensors">
+                            <div class="vspace-1"></div>
+                            <p class="lead">Avaiable Sensors</p>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Selection Options</div>
+                                <div class="panel-body">
+                                    <div class="checkbox">
+                                        <label>
+                                        <input id="sensors-best-choice" type="checkbox"> Best sensor choice (selects displays only one of each sensor)
+                                    </label>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button id="sensors-default-set" type="button" class="btn btn-default">Default Sensors</button>
+                                        <button id="sensors-select-all" type="button" class="btn btn-default">Select All Sensors</button>
+                                        <button id="sensors-unselect-all" type="button" class="btn btn-default">De-select All Sensors</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Sensor Inventory</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="fixed-panel-500" id="settings-sensor-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Other settings -->
+                        <div role="tabpanel" class="tab-pane" id="prefs-other">
+                            <div class="vspace-1"></div>
+                            <p class="lead">Other settings</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <dl class="dl-horizontal text-muted">
+                        <dt><a href="http://synopticlabs.org/">MesoWest/SynopticLabs</a></dt>
+                        <dd><a href="http://synopticlabs.org/about-us/">About Us</a></dd>
+                        <dd><a href="http://meso1.chpc.utah.edu/mesowest_overview/">MesoWest Research</a></dd>
+                        <dd><a href="http://blog.synopticlabs.org">Blog</a></dd>
+                        <dd><a href="http://synopticlabs.org/contact/">Contact Us</a></dd>
+                    </dl>
+                    <dl class="dl-horizontal text-muted">
+                        <dt><a href="http://synopticlabs.org/operational/">Services from MesoWest</a></dt>
+                        <dd><a href="http://mesowest.utah.edu">University MesoWest Home</a></dd>
+                        <dd><a href="http://fire.synopticlabs.org/alaska/">Alaksa Fire &amp; Fuels</a></dd>
+                        <dd><a href="http://glffc.utah.edu">Great Lakes Fire &amp; Fuels</a></dd>
+                    </dl>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <dl class="dl-horizontal text-muted">
+                        <dt><a href="http://synopticlabs.org/api/">SynopticLabs APIs</a></dt>
+                        <dd><a href="http://synopticlabs.org/api/products/">Our APIs</a></dd>
+                        <dd><a href="http://synopticlabs.org/api/guides/?getstarted">Get Started</a></dd>
+                        <dd><a href="http://synopticlabs.org/api/gallery/">Gallery</a></dd>
+                        <dd><a href="http://synopticlabs.org/api/tutorials/">Tutorials</a></dd>
+                        <dd><a href="http://synopticlabs.org/api/explore/">Explorer</a></dd>
+                        <dd><a href="http://synopticlabs.org/api/guides/">Guides</a></dd>
+                        <dd><a href="http://synopticlabs.org/api/legal/">Legal/Disclaimer</a></dd>
+                        <dd><a href="http://synopticlabs.org/api/faq/">FAQ</a></dd>
+                        <dd><a href="http://synopticlabs.org/api/account/">Your Account</a></dd>
+                        <dd><a href="http://synopticlabs.org/api/signup/">Get your API key</a></dd>
+                    </dl>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    <dl class="dl-horizontal text-muted">
+                        <dt><a href="http://synopticdata.com">Synoptic Data Corp</a></dt>
+                        <dd><a href="https://api.synoptic.io">Operational API Services</a></dd>
+                        <dd><a href="https://asn.synopticdata.com">Above Surface Networks</a></dd>
+                        <dd><a href="http://synopticdata.com/getstarted">Contact Synoptic Data</a></dd>
+                    </dl>
+                </div>
+            </div>
+            <hr/>
+            <p class="text-muted"><small>&copy; 1997-2016 MesoWest and the University of Utah, 2015-2016 SynopticLabs</small></p>
+        </div>
+    </footer>
+    <!-- Modal -->
+    <div class="modal fade" id="sitemap-modal" tabindex="-1" role="dialog" aria-labelledby="global-sitemap">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <!--<img src="assets/img/mw-thumbnail.jpg" class="sitemap-logo img-rounded">-->
+                    <h4 class="modal-title" id="global-sitemap">Site map</h4>
+                </div>
+                <div class="modal-body">
+                    Not enabled yet.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="http://dev2.mesowest.net/tomato//assets/js/core/mesonet-current.min.js"></script>
+<script src="http://dev2.mesowest.net/tomato//assets/js/core/d3.v4.js"></script>
+<script src="http://dev2.mesowest.net/tomato//assets/js/core/user.js"></script>
+<script src="C:\FireWeatherNow\server\FWN_tabtable.js"></script>
+<script src="http://dev2.mesowest.net/tomato//assets/js/core/units.js"></script>
+<!--<script src="http://dev2.mesowest.net/tomato//assets/js/core/jquery-ui.js "></script>-->
+<!--<script src="http://dev2.mesowest.net/tomato//assets/js/apps/tabtable.js"></script>-->
+<!-- <script src="http://scs.synopticlabs.net/js/glytics_slabs.js"></script> -->
+
+</html>
