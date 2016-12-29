@@ -29,7 +29,7 @@ def haversine(lon1, lat1, lon2, lat2):
     bearing = degrees(bearing)
     bearing = (bearing + 360) % 360
     if distance is None or bearing is None:
-        print('Error calculating with lat/lon '+str(lat1)+','+str(lon1)+','+str(lat2)+','+str(lon2))
+        print 'Error calculating with lat/lon '+str(lat1)+','+str(lon1)+','+str(lat2)+','+str(lon2)
     else:
         return distance, bearing
 
@@ -52,17 +52,18 @@ def haversine(lon1, lat1, lon2, lat2):
 #         print firedict[i]['polygon']['polygon_area']
 
 
-# def update_fires():
-#     """Grabs and parses the latest KML file, emits a json dict"""
-#     # args = {
-#     #     "source": "..\static_data\ActiveFirePerimeters.kml",
-#     #     "output_file": "current.json",
-#     #     "output_dir": "..\output\\"
-#     # }
-#     args = {}
-#     AF = ActiveFires.ActiveFires(args)
-#     # AF.emitter(AF.parser(AF.get_kml("")))
-#     AF.emitter(AF.parser(AF.get_kml("")), '_ActiveFiresDict', True)
+def update_fires():
+    """Grabs and parses the latest KML file, emits a json dict"""
+    # args = {
+    #     # "source": "..\static_data\ActiveFirePerimeters.kml",
+    #     "source": "C:\FireWeatherNow\server\src\ActiveFirePerimeters.kml",
+    #     "output_file": "current.json",
+    #     "output_dir": "..\output\\"
+    # }
+    args = {}
+    AF = ActiveFires.ActiveFires(args)
+    # AF.emitter(AF.parser(AF.get_kml("")))
+    AF.emitter(AF.parser(AF.get_kml("")), '_ActiveFiresDict', True)
 
 
 def nearest_peri_point (dict_, lat, lon):
@@ -137,7 +138,7 @@ if __name__ == '__main__':
 
 
 # Init.
-# update_fires()
+update_fires()
 stationquery()
 # polygonArea(stationquery())
 # put the code here to get the stations and serve the info back to the user.

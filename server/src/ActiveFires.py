@@ -13,8 +13,10 @@ class ActiveFires:
     def get_kml(self, url):
         """Gets kml object online"""
         import urllib
-        url = 'http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/ActiveFirePerimeters.kml'
+        # url = 'http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/ActiveFirePerimeters.kml'
+        url = 'https://www.geomac.gov/asp-bin/GeoMACKML/kmlHelper.htm?http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/current_year_fire_data/KMLS/TNGSP-016062%20CHIMNEY%20TOPS%202%2011-29-2016%201940.kml'
         response = urllib.urlopen(url).read()
+        # response = "C:\FireWeatherNow\server\src\ActiveFirePerimeters.kml"
         return response
 
     def desc_regexr(self, string):
@@ -46,7 +48,7 @@ class ActiveFires:
 
     def parser(self, response):
         """Active fires KML parser"""
-        import xmltodict
+        import server.src.xmltodict as xmltodict
         # Initiate the parser's working vars
         this = xmltodict.parse(response, encoding='UTF-8')
         that = {}
