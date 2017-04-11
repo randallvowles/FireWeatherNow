@@ -50,7 +50,7 @@ def haversine(lon1, lat1, lon2, lat2):
 #             y.append(firedict[i]['lon'][j])
 #         firedict[i]['polygon']['polygon_area'].append(0.5*np.abs(np.dot(x, np.roll(y, 1))-np.dot(y, np.roll(x, 1))))
 #         print firedict[i]['polygon']['polygon_area']
-# global_fire_dict = {}
+current_fire_dict = {}
 
 def update_fires():
     """Grabs and parses the latest KML file, emits a json dict"""
@@ -70,7 +70,7 @@ def update_fires():
         current_fire_dict[i]["polygon"] = []
     AF.emitter(current_fire_dict, '__metadatastash', True)
     AF.emitter(current_fire_dict, 'current__metadatastash', False)
-    return global_fire_dict
+    return current_fire_dict
 
 
 def nearest_peri_point(dict_, lat, lon):
@@ -128,10 +128,10 @@ def stationquery():
                                 'DFO': distance, 'NAME': name, 'DFP': DFP}
             firedict[i]['nearest_stations'].append(nearest_stations)
         firedict[i]['n_nearest_stations'].append(str(len(response["STATION"])))
-
-
-    AF.emitter(firedict, 'AF_NS_current', False)
-    AF.emitter(firedict, 'AF_NS', True)
+    for i in firedict:
+        firedict[i]["polygon"] = []
+    AF.emitter(firedict, 'current_fire_data', False)
+    AF.emitter(firedict, '__fire_data', True)
     return firedict
 
 
