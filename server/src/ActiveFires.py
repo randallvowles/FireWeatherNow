@@ -13,10 +13,11 @@ class ActiveFires:
     def get_kml(self, url):
         """Gets kml object online"""
         import urllib
-        # url = 'http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/ActiveFirePerimeters.kml'
-        url = 'https://www.geomac.gov/asp-bin/GeoMACKML/kmlHelper.htm?http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/current_year_fire_data/KMLS/TNGSP-016062%20CHIMNEY%20TOPS%202%2011-29-2016%201940.kml'
+        url = 'http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/ActiveFirePerimeters.kml'
+        # url = 'http://rmgsc.cr.usgs.gov/outgoing/GeoMAC/current_year_fire_data/KMLS/TNGSP-016062%20CHIMNEY%20TOPS%202%2011-29-2016%201940.kml'
+        # url = 'https://rmgsc.cr.usgs.gov/outgoing/GeoMAC/2016_fire_data/KMLS/TNGSP-016062%20CHIMNEY%20TOPS%202%2011-29-2016%201940.kml'
+        # url = 'https://rmgsc.cr.usgs.gov/outgoing/GeoMAC/2016_fire_data/KMLS/TNGSP-016062%20CHIMNEY%20TOPS%202%2012-13-2016%200000.kml'
         response = urllib.urlopen(url).read()
-        # response = "C:\FireWeatherNow\server\src\ActiveFirePerimeters.kml"
         return response
 
     def desc_regexr(self, string):
@@ -50,6 +51,7 @@ class ActiveFires:
         """Active fires KML parser"""
         import server.src.xmltodict as xmltodict
         # Initiate the parser's working vars
+
         this = xmltodict.parse(response, encoding='UTF-8')
         that = {}
         tmp = dict()
@@ -123,7 +125,7 @@ class ActiveFires:
         # output_dir = '../storage/fire_data/'
         file_out = output_dir + filename1
         with open(file_out, 'w') as file_out:
-            json.dump(dict_, file_out, sort_keys=True, separators=(',', ':'),
-                      encoding="utf-8")
-            # json.dump(dict_, file_out, sort_keys=True, indent=4)
+            # json.dump(dict_, file_out, sort_keys=True, separators=(',', ':'),
+            #           encoding="utf-8")
+            json.dump(dict_, file_out, sort_keys=True, indent=4)
 # /uufs/chpc.utah.edu/common/home/u0540701/public_html/fireserver

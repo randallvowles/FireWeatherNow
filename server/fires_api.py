@@ -29,7 +29,7 @@ def haversine(lon1, lat1, lon2, lat2):
     bearing = degrees(bearing)
     bearing = (bearing + 360) % 360
     if distance is None or bearing is None:
-        print 'Error calculating with lat/lon '+str(lat1)+','+str(lon1)+','+str(lat2)+','+str(lon2)
+        print('Error calculating with lat/lon '+str(lat1)+','+str(lon1)+','+str(lat2)+','+str(lon2))
     else:
         return distance, bearing
 
@@ -43,14 +43,14 @@ def haversine(lon1, lat1, lon2, lat2):
 #     nfiredict = firedict
 #     for i in firedict:
 #         firedict[i]['polygon']['polygon_area'] = []
-#         x = []
+#         x = []nm
 #         y = []
 #         for j in firedict[i]['polygon']:
 #             x.append(firedict[i]['lat'][j])
 #             y.append(firedict[i]['lon'][j])
 #         firedict[i]['polygon']['polygon_area'].append(0.5*np.abs(np.dot(x, np.roll(y, 1))-np.dot(y, np.roll(x, 1))))
 #         print firedict[i]['polygon']['polygon_area']
-
+# global_fire_dict = {}
 
 def update_fires():
     """Grabs and parses the latest KML file, emits a json dict"""
@@ -63,12 +63,18 @@ def update_fires():
     args = {}
     AF = ActiveFires.ActiveFires(args)
     # AF.emitter(AF.parser(AF.get_kml("")))
-    AF.emitter(AF.parser(AF.get_kml("")), '_ActiveFiresDict', True)
+    # global_fire_dict = AF.parser(AF.get_kml(""))
+    # current_fire_dict = global_fire_dict
+    current_fire_dict = AF.parser(AF.get_kml(""))
+    for i in current_fire_dict:
+        current_fire_dict[i]["polygon"] = []
+    AF.emitter(current_fire_dict, '__metadatastash', True)
+    AF.emitter(current_fire_dict, 'current__metadatastash', False)
+    return global_fire_dict
 
 
-def nearest_peri_point (dict_, lat, lon):
+def nearest_peri_point(dict_, lat, lon):
     """Calculates shortest distance from station to perimeter"""
-    import sys
     poly_dict = dict_
     st_lat = float(lat)
     st_lon = float(lon)
@@ -97,18 +103,19 @@ def nearest_peri_point (dict_, lat, lon):
 
 
 def stationquery():
-    """Queries for nearest stations for each polygon element"""
+    """Queries for nearest stations for each polygon element and emits file"""
     import urllib
     import json
     args = {}
     AF = ActiveFires.ActiveFires(args)
     firedict = AF.parser(AF.get_kml(""))
+    # firedict = global_fire_dict
     for i in firedict:
         firedict[i]['nearest_stations'] = []
         lat = firedict[i]['lat']
         lon = firedict[i]['lon']
         query = urllib.urlopen(base_url+urllib.urlencode(params)+
-                               '&radius='+(lat)+','+(lon)+',200').read()
+                               '&radius='+(lat)+','+(lon)+',50').read()
         response = json.loads(query)
         for j in range(len(response["STATION"])):
             stid = response["STATION"][j]["STID"]
@@ -121,6 +128,8 @@ def stationquery():
                                 'DFO': distance, 'NAME': name, 'DFP': DFP}
             firedict[i]['nearest_stations'].append(nearest_stations)
         firedict[i]['n_nearest_stations'].append(str(len(response["STATION"])))
+
+
     AF.emitter(firedict, 'AF_NS_current', False)
     AF.emitter(firedict, 'AF_NS', True)
     return firedict
