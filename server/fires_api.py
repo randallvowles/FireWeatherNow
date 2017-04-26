@@ -119,13 +119,15 @@ def stationquery():
         response = json.loads(query)
         for j in range(len(response["STATION"])):
             stid = response["STATION"][j]["STID"]
-            slat = response["STATION"][j]["LATITUDE"]
-            slon = response["STATION"][j]["LONGITUDE"]
-            distance = str(response["STATION"][j]["DISTANCE"])
+            slat = float(response["STATION"][j]["LATITUDE"])
+            slon = float(response["STATION"][j]["LONGITUDE"])
+            distance = float(response["STATION"][j]["DISTANCE"])
             name = response["STATION"][j]["NAME"]
             DFP = nearest_peri_point(firedict[i]['polygon'], slat, slon)
-            nearest_stations = {'STID': stid, 'LAT': slat, 'LON': slon,
-                                'DFO': distance, 'NAME': name, 'DFP': DFP}
+            nearest_stations = {'stid': stid, 'lat': slat, 'lon': slon,
+                                'distance_from_origin': distance, 'name': name,
+                                'distance_from_perimeter': float(DFP[0]),
+                                'bearing_from_perimeter': float(DFP[1])}
             firedict[i]['nearest_stations'].append(nearest_stations)
         firedict[i]['n_nearest_stations'].append(str(len(response["STATION"])))
     for i in firedict:

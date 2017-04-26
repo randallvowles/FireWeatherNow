@@ -122,7 +122,7 @@ class ActiveFires:
         # This should be surfaced as an option.
         filename1 = str(timestamp) + str(filename) + '.json'
         # output_dir = 'C:\\FireWeatherNow\\storage\\fire_data\\'
-        output_dir = '../storage/fire_data/'
+        output_dir = '/uufs/chpc.utah.edu/common/home/u0540701/public_html/storage/fire_data/'
         file_out = output_dir + filename1
         with open(file_out, 'w') as file_out:
             # json.dump(dict_, file_out, sort_keys=True, separators=(',', ':'),
